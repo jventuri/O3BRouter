@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema2.xsd"> 
+<prop description="App desc" displayName="App Info" firstTitle="App" id="22" isPlatform="false" key="system.sar" lastTitle="Info" maxPlatformVersion="150" minPlatformVersion="99.99" paradigmModule="system.sar" releaseType="" rpmName="JSsystem.sar" subVersion="" title="Application Info Property" vendorId="virtualarmor" vendorName="Virtual Armor" version="1.0"/> 
+</app>

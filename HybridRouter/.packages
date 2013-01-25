@@ -1,0 +1,65 @@
+<packages version="1.2">
+   <package exploded="false" inWorkspace="false" name="HybridRouter.ear" todir="./bin/" type="jar">
+    <package exploded="false" inWorkspace="true" name="SnmpManagerUtil.jar" todir="C:\Development\GitHub\localRepo\O3BRouter\HybridRouter\EarContent\lib\SnmpManagerUtil">
+      <fileset dir="/SnmpManagerUtil/build/classes" flatten="false" inWorkspace="true" includes="**/*">
+        <properties/>
+      </fileset>
+      <properties/>
+    </package>
+    <package exploded="false" inWorkspace="true" name="HybridRouterWebSvc.war" type="jar">
+      <fileset dir="/HybridRouterWebSvc/web" flatten="false" inWorkspace="true" includes="**/*">
+        <properties/>
+      </fileset>
+      <folder name="WEB-INF">
+        <folder name="classes">
+          <fileset dir="/HybridRouterWebSvc/build/classes" flatten="false" inWorkspace="true" includes="**/*">
+            <properties/>
+          </fileset>
+          <properties/>
+        </folder>
+        <folder name="lib">
+          <properties/>
+        </folder>
+        <properties/>
+      </folder>
+      <properties/>
+    </package>
+    <package exploded="false" inWorkspace="true" name="HybridRouterWeb.war" todir="HybridRouterWeb">
+      <fileset dir="/HybridRouterWeb/web" flatten="false" inWorkspace="true" includes="**/*">
+        <properties/>
+      </fileset>
+      <folder name="WEB-INF">
+        <folder name="lib">
+          <properties/>
+        </folder>
+        <folder name="classes">
+          <fileset dir="/HybridRouterWeb/build/classes" flatten="false" inWorkspace="true" includes="**/*">
+            <properties/>
+          </fileset>
+          <properties/>
+        </folder>
+        <properties/>
+      </folder>
+      <properties/>
+    </package>
+    <package exploded="false" inWorkspace="true" name="HybridRouterEJB.jar" todir="/HybridRouterEJB">
+      <fileset dir="/HybridRouterEJB/build/classes" flatten="false" inWorkspace="true" includes="**/*">
+        <properties/>
+      </fileset>
+      <properties/>
+    </package>
+      <package exploded="false" inWorkspace="true" name="system.sar" todir="/system.sar" type="jar">
+         <fileset dir="/system.sar/classes" flatten="false" inWorkspace="true" includes="**/*">
+            <properties/>
+         </fileset>
+         <properties/>
+      </package>
+      <fileset dir="/HybridRouter/EarContent" excludes="**/app-settings/App-settings.xml,**/app-settings/app-settings-configurator.xsd" flatten="false" inWorkspace="true" includes="**/*.*,*.*">
+         <properties/>
+      </fileset>
+      <properties>
+         <property name="org.jboss.ide.eclipse.as.core.packages.ModuleIDPropertyKey" value="1270145205007"/>
+      </properties>
+   </package>
+   <properties/>
+</packages>

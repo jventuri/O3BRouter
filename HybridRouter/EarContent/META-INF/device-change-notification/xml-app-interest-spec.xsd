@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="app-interest-spec" type="appInterestRegistration"/>
+
+  <xs:complexType name="appInterestRegistration">
+    <xs:sequence>
+      <xs:element name="app-name" type="xs:string" minOccurs="0"/>
+      <xs:element name="schemas" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="schema" type="schemaNode" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="schemaNode">
+    <xs:sequence>
+      <xs:element name="dmi-node" type="dmiNode" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="device-family" type="xs:string"/>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="override" type="xs:string"/>
+    <xs:attribute name="type" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="dmiNode">
+    <xs:sequence>
+      <xs:element name="exclude" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="blob" type="xs:boolean"/>
+    <xs:attribute name="exclude">
+      <xs:simpleType>
+        <xs:list itemType="xs:string"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="key">
+      <xs:simpleType>
+        <xs:list itemType="xs:string"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="type" type="xs:string"/>
+    <xs:attribute name="override" type="overrideDmiNodeEnum"/>
+    <xs:attribute name="preserve" type="preserveDmiNodeEnum"/>
+    <xs:attribute name="xpath" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="overrideDmiNodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="REMOVE"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="preserveDmiNodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SELF"/>
+      <xs:enumeration value="RECURSIVE"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

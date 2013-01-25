@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="hybrid-router" type="snmpDeviceRestImpl"/>
+
+  <xs:complexType name="snmpDeviceRestImpl">
+    <xs:complexContent>
+      <xs:extension base="webSvcAbstract">
+        <xs:sequence>
+          <xs:element name="collection" type="hateoasMethodObject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="method" type="hateoasMethodObject" minOccurs="0" maxOccurs="unbounded"/>          
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="webSvcAbstract" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="hateoasMethodObject">
+    <xs:sequence/>
+    <xs:attribute name="rel" type="xs:string"/>
+    <xs:attribute name="href" type="xs:string" use="required"/>
+  </xs:complexType>
+</xs:schema>
+

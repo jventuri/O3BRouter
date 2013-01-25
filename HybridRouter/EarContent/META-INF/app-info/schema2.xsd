@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="app" type="appInfo"/>
+
+  <xs:complexType name="appInfo">
+    <xs:sequence>
+      <xs:element name="prop" type="appProp" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="appProp">
+    <xs:sequence/>
+    <xs:attribute name="id" type ="xs:integer"/>
+    <xs:attribute name="key" type="xs:string" use="required"/>
+    <xs:attribute name="isPlatform" type="xs:boolean"/>
+    <xs:attribute name="minPlatformVersion" type="xs:string"/>
+    <xs:attribute name="maxPlatformVersion" type="xs:string"/>
+    <xs:attribute name="rpmName" type="xs:string"/>
+    <xs:attribute name="displayName" type="xs:string"/>
+    <xs:attribute name="title" type="xs:string"/>
+    <xs:attribute name="description" type="xs:string"/>
+    <xs:attribute name="firstTitle" type="xs:string"/>
+    <xs:attribute name="lastTitle" type="xs:string"/>
+    <xs:attribute name="version" type="xs:string"/>
+    <xs:attribute name="subVersion" type="xs:string"/>
+    <xs:attribute name="paradigmModule" type="xs:string"/>
+    <xs:attribute name="vendorName" type="xs:string"/>
+    <xs:attribute name="vendorId" type="xs:string"/>
+    <xs:attribute name="releaseType" type="xs:string"/>
+    
+  </xs:complexType>
+</xs:schema>

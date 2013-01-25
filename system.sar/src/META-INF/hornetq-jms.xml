@@ -1,0 +1,10 @@
+<configuration xmlns="urn:hornetq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hornetq /schema/hornetq-jms.xsd">
+ 
+ <!-- Topic Configurations -->
+
+	<topic name="HybridRouterDatabaseChange">
+		<entry name="topic/HybridRouterDatabaseChange"/>
+	</topic>
+
+</configuration>
+      

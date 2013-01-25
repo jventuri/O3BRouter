@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="src" path="/HybridRouterEJB"/>
+	<classpathentry excluding="**/*.svn|**/.svn/*" kind="src" path="web-src"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/HybridRouter/EarContent/lib/junos-space/cmp-shared.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/javaee.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/log4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/apache-mime4j-0.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/jettison-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/scannotation-1.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/cmp-interfaces.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/uicommon.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/jaxb-xjc.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/jaxb-impl-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/customaction.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/sdk-interfaces.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/sdk-dto.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/jaxrs-api-2.1.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/resteasy-jaxrs-2.1.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/commons-httpclient.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/commons-codec.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/commons-logging-1.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/resteasy-jaxb-provider-2.1.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/resteasy-jettison-provider-2.1.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/resteasy/resteasy-multipart-provider-2.1.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/SDK-WebSvc-Common.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/cems-interfaces.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/cems-shared.jar"/>
+	<classpathentry exported="true" kind="lib" path="web/WEB-INF/lib/SDK-Interceptors.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/jersey-client-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/jersey-core-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/jersey-apache-client-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/lib/junit-4.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/jboss-common-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HybridRouter/EarContent/lib/junos-space/jersey-json-1.6.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

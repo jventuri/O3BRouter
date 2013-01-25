@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema2.xsd"> 
+<prop description="Manages O3B Networks and Devices" displayName="App Info" firstTitle="App" id="22" isPlatform="false" key="HybridRouter" lastTitle="Info" maxPlatformVersion="150" minPlatformVersion="99.99" paradigmModule="HybridRouter" releaseType="R1" rpmName="JSHybridRouter" subVersion="" title="O3B Network Management" vendorId="virtualarmor" vendorName="Virtual Armor" version="1.0"/> 
+</app>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <display-name>Archetype Created Web Application</display-name>
+ <distributable/>
+ <servlet>
+  <servlet-name>CMPServlet</servlet-name>
+  <servlet-class>net.juniper.common.client.server.JxServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>CMPServlet</servlet-name>
+  <url-pattern>/CMPServlet</url-pattern>
+ </servlet-mapping>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>

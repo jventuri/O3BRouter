@@ -1,0 +1,106 @@
+<app-spec xsi:noNamespaceSchemaLocation="xxx-module.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <version>1.0</version>
+    <entity-definitions>
+        <all-apps>
+            <app name="HybridRouter">
+                <appchooser-title>O3B Network Management</appchooser-title>
+                <app-icon>../ui/virtualarmor/hybrid-router/images/apps/HybridRouterManager.png</app-icon>
+                <app-name>HybridRouter</app-name>
+                <description>Manages the O3B Network</description>
+                <description-icon>../ui/virtualarmor/hybrid-router/images/apps/o3bAppTooltip.png</description-icon>
+                <home-icon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</home-icon>
+                <home-task></home-task>
+                <home-workspace>HybridRouterWS</home-workspace>
+                <hover-image>o3bAppHover.png</hover-image>
+                <icon>o3bApp.png</icon>
+                <icon-path>/ui/virtualarmor/hybrid-router/images/apps/</icon-path>
+                <seq>1000</seq>
+                <start-angle>155</start-angle>
+                <title>O3B Network Management</title>
+                <upload-time>1001</upload-time>
+            </app>
+        </all-apps>
+        <all-capabilities>
+            <capability name="HybridRouterCap" module="HybridRouter">
+                <title>HybridRouter capability</title>
+            </capability>
+        </all-capabilities>
+        <all-gadgets/>
+        <all-guide-steps/>
+        <all-guides/>
+        <all-mostates/>
+        <all-motypes/>
+        <all-roles>
+            <role name="HybridRouterRole" module="HybridRouter">
+                <predefined>true</predefined>
+                <sharable>true</sharable>
+                <title>HybridRouter Role</title>
+            </role>
+        </all-roles>
+        <all-service-properties/>
+        <all-services/>
+        <all-tasks>
+            <task workspace="HybridRouterWS" name="DeviceValues" module="HybridRouter" capability="HybridRouterCap">
+                <addToRibbon>true</addToRibbon>
+                <hoverIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</hoverIcon>
+                <icon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</icon>
+                <isEnabledByDefault>true</isEnabledByDefault>
+                <long-doc-path></long-doc-path>
+                <parent-task-name></parent-task-name>
+                <selIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</selIcon>
+                <seq>2</seq>
+                <smallIcon></smallIcon>
+                <stepTask>false</stepTask>
+                <title>SNMP Device Values</title>
+                <tooltip></tooltip>
+                <uiConfig>
+                    <jsTask>
+                        <jsConfig>
+                            <debug>true</debug>
+                            <className>Js.devicevalues.DeviceValues</className>
+                            <basePath>/ui/virtualarmor/hybrid-router/js</basePath>
+                            <namespaces>
+                                <namespace name="js">tasks</namespace>
+                            </namespaces>
+                            <params/>
+                        </jsConfig>
+                        <cssConfig>
+                            <files/>
+                        </cssConfig>
+                    </jsTask>
+                </uiConfig>
+            </task>
+        </all-tasks>
+        <all-workspaces>
+            <workspace name="HybridRouterWS">
+                <description>Device Management</description>
+                <helpUrl>/../ui/virtualarmor/hybrid-router/help/HybridRouterWS-index.html</helpUrl>
+                <hoverIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</hoverIcon>
+                <icon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</icon>
+                <landingpage></landingpage>
+                <selIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</selIcon>
+                <seq>1</seq>
+                <smallIcon>../ui/virtualarmor/hybrid-router/images/apps/o3bApp24.png</smallIcon>
+                <title>Manage O3B Devices</title>
+            </workspace>
+        </all-workspaces>
+    </entity-definitions>
+    <external-entities>
+        <external-workspaces>
+            <workspace name="DashBoard"/>
+        </external-workspaces>
+    </external-entities>
+    <relation-definitions>
+        <app-workspaces>
+            <app name="HybridRouter">
+                <workspace>HybridRouterWS</workspace>
+            </app>
+        </app-workspaces>
+        <motype-tasks/>
+        <role-capabilities>
+            <role name="HybridRouterRole">
+                <capability>HybridRouterCap</capability>
+            </role>
+        </role-capabilities>
+    </relation-definitions>
+</app-spec>

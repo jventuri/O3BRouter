@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd>
+    <useProjectRuleSet>false</useProjectRuleSet>
+    <ruleSetFile>.ruleset</ruleSetFile>
+    <rules>
+        <rule>
+            <name>AvoidConsumesForAnnotationParameterOnlyRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>AvoidConsumesForNoParameterRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>AvoidProducesRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>CapabilityValidityRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>ConsumesMediaTypeValidationRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InconsistentRBACRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InvalidDeleteUsageRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InvalidDTORule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InvalidMethodRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InvalidPathParamRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InvalidPathRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InvalidRESTMethodRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>InvalidXMLAccessorTypeUsageRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>JxServiceLocatorRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MissingCharsetInMediaTypeRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MissingConsumesRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MissingHttpMethodRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MissingPathParamRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MissingProducesRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MissingRBACRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MissingSortableFilterableUsageRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>MoreThanOneHttpMethodRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>PathExistenceRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>ProducesMediaTypeValidationRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+        <rule>
+            <name>RestResourceNotDiscoverable</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+         <rule>
+            <name>MissingRootLevelSchemaRule</name>
+            <ruleset>Junos Space Rules</ruleset>
+        </rule>
+    </rules>
+    <includeDerivedFiles>false</includeDerivedFiles>
+    <violationsAsErrors>true</violationsAsErrors>
+</pmd>

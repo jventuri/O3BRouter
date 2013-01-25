@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="HybridRouter">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+         <dependent-module archiveName="system.sar" deploy-path="/" handle="module:/resource/system.sar/system.sar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="HybridRouterEJB.jar" deploy-path="/" handle="module:/resource/HybridRouterEJB/HybridRouterEJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="HybridRouterWebSvc.war" deploy-path="/" handle="module:/resource/HybridRouterWebSvc/HybridRouterWebSvc">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="HybridRouterWeb.war" deploy-path="/" handle="module:/resource/HybridRouterWeb/HybridRouterWeb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SnmpManagerUtil.jar" deploy-path="/lib" handle="module:/resource/SnmpManagerUtil/SnmpManagerUtil">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+    
+    
+</project-modules>

@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="app-spec" type="appSpec" />
+	<xs:element name="appEntry" type="appEntry" />
+	<xs:element name="uiConfig" type="uiConfig" />
+
+	<xs:element name="wsUiConfig" type="wsUiConfig" />
+
+	<xs:complexType name="appSpec">
+		<xs:sequence>
+			<xs:element name="version" type="xs:string" minOccurs="0" />
+			<xs:element name="entity-definitions" type="entitySpec"
+				minOccurs="0" />
+			<xs:element name="external-entities" type="externalEntitySpec"
+				minOccurs="0" />
+			<xs:element name="relation-definitions" type="relationSpec"
+				minOccurs="0" />
+
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="externalModule">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+	<xs:complexType name="entitySpec">
+		<xs:sequence>
+			<xs:element name="all-apps" minOccurs="0">
+				<xs:complexType>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="external-app" type="externalModule"
+							minOccurs="0" maxOccurs="unbounded" />
+						<xs:element name="app" type="moduleEntity" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-capabilities" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="capability" type="Capability"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-gadgets" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="gadget" type="Gadget" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-guide-steps" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="guide-step" type="GetStartedGuideStep"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-guides" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="guide" type="GetStartedGuide"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-mostates" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="mostate" type="managedObjectStateEntity"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-motypes" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="motype" type="managedObjectTypeEntity"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-roles" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="role" type="Role" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-service-properties" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="service-property" type="ServiceProperty"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-services" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="service" type="serviceInfoEntity"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-tasks" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="task" type="taskEntity" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="all-workspaces" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="workspace" type="Workspace"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="moduleEntity">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:sequence>
+					<xs:element name="appchooser-title" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="app-entry" type="appEntry" minOccurs="0" />
+					<xs:element name="app-icon" type="xs:string" minOccurs="0" />
+					<xs:element name="app-icon-title" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="app-name" type="xs:string" />
+					<xs:element name="app-setting-url" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="description" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="description-icon" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="home-icon" type="xs:string" minOccurs="0" />
+					<xs:element name="home-task" type="xs:string" minOccurs="0" />
+					<xs:element name="home-workspace" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="hover-image" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="icon" type="xs:string" minOccurs="0" />
+					<xs:element name="icon-path" type="xs:string" minOccurs="0" />
+					<xs:element name="seq" type="xs:int" />
+					<xs:element name="start-angle" type="xs:int" />
+					<xs:element name="title" type="xs:string" />
+					<xs:element name="upload-time" type="xs:int" />
+				</xs:sequence>
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="uniquelyNamedEntity" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="uniqueConstrainedEntity">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="uniqueConstrainedEntity" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="optimisticEntity">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="optimisticEntity" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="abstractEntity">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="abstractEntity" abstract="true">
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="appEntry">
+		<xs:sequence>
+			<xs:element name="includeUrl" type="xs:string" minOccurs="0" />
+			<xs:element name="type" type="appEntryType" minOccurs="0" />
+			<xs:element name="url" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Capability">
+		<xs:complexContent>
+			<xs:extension base="optimisticEntity">
+				<xs:sequence>
+					<xs:element name="title" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="module" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Gadget">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:sequence>
+					<xs:element name="title" type="xs:string" />
+					<xs:element name="tooltip" type="xs:string" minOccurs="0" />
+					<xs:element name="url" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="height" type="xs:int" use="required" />
+				<xs:attribute name="module" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+				<xs:attribute name="shownInDashBoard" type="xs:int"
+					use="required" />
+				<xs:attribute name="width" type="xs:int" use="required" />
+				<xs:attribute name="workspace" type="xs:IDREF" />
+				<xs:attribute name="x" type="xs:int" use="required" />
+				<xs:attribute name="y" type="xs:int" use="required" />
+
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Workspace">
+		<xs:complexContent>
+			<xs:extension base="namedWorkspace">
+				<xs:sequence>
+					<xs:element name="description" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="helpUrl" type="xs:string" minOccurs="0" />
+					<xs:element name="hoverIcon" type="xs:string" minOccurs="0" />
+					<xs:element name="icon" type="xs:string" minOccurs="0" />
+					<xs:element name="landingpage" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="selIcon" type="xs:string" minOccurs="0" />
+					<xs:element name="seq" type="xs:int" />
+					<xs:element name="smallIcon" type="xs:string" minOccurs="0" />
+					<xs:element name="title" type="xs:string" />
+					<xs:element name="useNameAsNavId" type="xs:boolean"
+						minOccurs="0" />
+					<xs:element ref="wsUiConfig" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="namedWorkspace">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:sequence />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="wsUiConfig">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="jsWorkspace" type="jsWorkspace" />
+				<xs:element name="htmlWorkspace" type="htmlWorkspace" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="jsWorkspace">
+		<xs:sequence>
+			<xs:element name="jsConfig" type="jsConfig" minOccurs="0" />
+			<xs:element name="cssConfig" type="cssConfig" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="htmlWorkspace">
+		<xs:sequence>
+			<xs:element name="file" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GetStartedGuideStep">
+		<xs:complexContent>
+			<xs:extension base="uniqueConstrainedEntity">
+				<xs:sequence>
+					<xs:element name="help-url" type="xs:string" minOccurs="0" />
+					<xs:element name="required" type="xs:boolean" minOccurs="0" />
+					<xs:element name="seq" type="xs:int" />
+					<xs:element name="task-name" type="xs:string" minOccurs="0" />
+					<xs:element name="title" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="guide" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GetStartedGuide">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:sequence>
+					<xs:element name="help-url" type="xs:string" minOccurs="0" />
+					<xs:element name="seq" type="xs:string" minOccurs="0" />
+					<xs:element name="title" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="module" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="managedObjectStateEntity">
+		<xs:complexContent>
+			<xs:extension base="uniqueConstrainedEntity">
+				<xs:sequence>
+					<xs:element name="image" type="xs:string" />
+					<xs:element name="image-overlay-order" type="xs:int" />
+					<xs:element name="mutual-exclusive" type="xs:boolean" />
+					<xs:element name="name" type="xs:string" />
+					<xs:element name="value" type="xs:string" />
+				</xs:sequence>
+				<xs:attribute name="motype" type="xs:IDREF" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="managedObjectTypeEntity">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:sequence>
+					<xs:element name="description" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="moRbacMgrName" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="moStateMgrName" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="title" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="module" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Role">
+		<xs:complexContent>
+			<xs:extension base="optimisticEntity">
+				<xs:sequence>
+					<xs:element name="description" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="lessTasks" type="xs:string" minOccurs="0" />
+					<xs:element name="predefined" type="xs:boolean" />
+					<xs:element name="sharable" type="xs:boolean" />
+					<xs:element name="title" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="module" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ServiceProperty">
+		<xs:complexContent>
+			<xs:extension base="uniqueConstrainedEntity">
+				<xs:sequence />
+				<xs:attribute name="name" type="xs:string" />
+				<xs:attribute name="service" type="xs:IDREF" use="required" />
+				<xs:attribute name="value" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="serviceInfoEntity">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:sequence>
+					<xs:element name="ejb-name" type="xs:string" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="module" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="taskEntity">
+		<xs:complexContent>
+			<xs:extension base="uniquelyNamedEntity">
+				<xs:sequence>
+					<xs:element name="addToRibbon" type="xs:boolean"
+						minOccurs="0" />
+					<xs:element name="hoverIcon" type="xs:string" minOccurs="0" />
+					<xs:element name="icon" type="xs:string" minOccurs="0" />
+					<xs:element name="isEnabledByDefault" type="xs:boolean"
+						minOccurs="0" />
+					<xs:element name="long-doc-path" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="optional" type="xs:boolean" minOccurs="0" />
+					<xs:element name="parent-task-name" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="pluginActionCheckPath" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="selIcon" type="xs:string" minOccurs="0" />
+					<xs:element name="seq" type="xs:int" />
+					<xs:element name="smallIcon" type="xs:string" minOccurs="0" />
+					<xs:element name="stepTask" type="xs:boolean" minOccurs="0" />
+					<xs:element name="title" type="xs:string" />
+					<xs:element name="tooltip" type="xs:string" minOccurs="0" />
+					<xs:element ref="uiConfig" minOccurs="0" />
+					<xs:element name="useNameAsNavId" type="xs:boolean"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="capability" type="xs:IDREF" />
+				<xs:attribute name="module" type="xs:IDREF" use="required" />
+				<xs:attribute name="name" type="xs:ID" use="required" />
+				<xs:attribute name="workspace" type="xs:IDREF" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="uiConfig">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="jsTask" type="jsTask" />
+				<xs:element name="htmlTask" type="htmlTask" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="jsTask">
+		<xs:sequence>
+			<xs:element name="jsConfig" type="jsConfig" minOccurs="0" />
+			<xs:element name="cssConfig" type="cssConfig" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="jsConfig">
+		<xs:sequence>
+			<xs:element name="debug" type="xs:boolean" minOccurs="0" />
+			<xs:element name="className" type="xs:string" />
+			<xs:element name="basePath" type="xs:string" />
+			<xs:element name="namespaces" type="namespaces" minOccurs="0" />
+			<xs:element name="params" type="params" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="namespaces">
+		<xs:sequence>
+			<xs:element name="namespace" type="namespace" nillable="true"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="namespace">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="params">
+		<xs:sequence>
+			<xs:element name="param" type="param" nillable="true"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="param">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="cssConfig">
+		<xs:sequence>
+			<xs:element name="files" type="files" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="files">
+		<xs:sequence>
+			<xs:element name="file" type="xs:string" nillable="true"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="htmlTask">
+		<xs:sequence>
+			<xs:element name="file" type="xs:string" nillable="true"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="externalEntitySpec">
+		<xs:sequence>
+			<xs:element name="external-workspaces" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="workspace" type="namedWorkspace"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="relationSpec">
+		<xs:sequence>
+			<xs:element name="app-workspaces" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="app" type="appWorkspaces" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="motype-tasks" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="motype" type="moTypeTasks" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="role-capabilities" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="role" type="roleCapabilities"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="appWorkspaces">
+		<xs:sequence>
+			<xs:element name="workspace" type="xs:IDREF" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:IDREF" />
+	</xs:complexType>
+
+	<xs:complexType name="moTypeTasks">
+		<xs:sequence>
+			<xs:element name="task" type="xs:IDREF" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:IDREF" />
+	</xs:complexType>
+
+	<xs:complexType name="roleCapabilities">
+		<xs:sequence>
+			<xs:element name="capability" type="xs:IDREF" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:IDREF" />
+	</xs:complexType>
+
+	<xs:simpleType name="appEntryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="iframe" />
+			<xs:enumeration value="js" />
+			<xs:enumeration value="link" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
+

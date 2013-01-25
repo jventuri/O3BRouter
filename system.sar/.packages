@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<packages version="1.2">
+   <package name="system.sar.ear" type="jar" todir="./bin/" exploded="false" inWorkspace="false">
+      <package name="system.sar" type="jar" todir="/system.sar" exploded="false" inWorkspace="true">
+         <fileset dir="/system.sar/classes" includes="**/*" inWorkspace="true" flatten="false">
+            <properties></properties>
+         </fileset>
+         <properties></properties>
+      </package>
+      <fileset dir="/system.sar/EarContent" includes="**/*.*,*.*" inWorkspace="true" flatten="false" excludes="**/app-settings/App-settings.xml,**/app-settings/app-settings-configurator.xsd">
+         <properties></properties>
+      </fileset>
+      <properties>
+         <property name="org.jboss.ide.eclipse.as.core.packages.ModuleIDPropertyKey" value="1270145205007"></property>
+      </properties>
+   </package>
+   <properties></properties>
+</packages>

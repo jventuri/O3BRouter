@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="HybridRouterEJB">
+    <wb-resource deploy-path="/" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/test"/>
+        <property name="java-output-path" value="/HybridRouterEJB/build/classes"/>
+    </wb-module>
+</project-modules>

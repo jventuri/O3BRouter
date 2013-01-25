@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-interest-spec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xml-app-interest-spec.xsd">
+<app-name>system.sar</app-name>
+<schemas>
+<!-- You xpath node filter should go here for example
+<schema type="configuration" device-family="junos">
+<dmi-node xpath="/configuration/groups/name"/>
+<dmi-node xpath="/configuration/groups/rcsid"/>
+<dmi-node xpath="/configuration/groups/system"/>
+</schema>
+-->
+
+</schemas>
+</app-interest-spec>

@@ -1,0 +1,8 @@
+<INBOUND>
+        <PROTOCOL>tcp</PROTOCOL>
+        <DEST>
+                <ADDR>@VIP</ADDR>
+                <PORT>443</PORT>
+        </DEST>
+        <PERSIST/>
+</INBOUND>

@@ -1,0 +1,6 @@
+<GLOBAL>
+<ALLOW>
+/api/virtualarmor/hybrid-router
+/ui/virtualarmor/hybrid-router
+</ALLOW>
+</GLOBAL>

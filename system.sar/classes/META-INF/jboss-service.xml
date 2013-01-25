@@ -1,0 +1,31 @@
+<server>
+
+    <mbean code="net.juniper.jmp.cmp.system.EjbTracker"
+       name="jnpr.jmp:service=EjbTracker,component=HybridRouter">
+      <depends>jnpr.jmp:service=InventoryTracker,component=cmp</depends>
+    </mbean>
+
+    <!-- launch web app tracker to log all the web apps in current ear -->
+    <mbean code="net.juniper.jmp.cmp.system.WebappTracker"
+       name="jnpr.jmp:service=WebappTracker,component=HybridRouter">
+      <depends>jnpr.jmp:service=InventoryTracker,component=cmp</depends>
+    </mbean>
+
+    <!-- launch app initializer to initialize app related data after current ear deployment -->
+    <mbean code="net.juniper.jmp.cmp.system.AppInitializer"
+       name="jnpr.jmp:service=AppInitializer,component=HybridRouter">
+    </mbean>
+    
+    <!-- load resource bundle when needed -->
+    <mbean code="net.juniper.jmp.cmp.system.ResourceBundleLoader"
+       name="jnpr.jmp:service=ResourceBundleLoader,component=HybridRouter">
+    </mbean>
+
+    <mbean code="org.jboss.jms.server.destination.TopicService"
+       name="jboss.messaging.destination:service=Topic,name=HybridRouterDatabaseChange"
+       xmbean-dd="xmdesc/Topic-xmbean.xml">
+       <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+       <depends>jboss.messaging:service=PostOffice</depends>
+       <attribute name="Clustered">true</attribute>
+    </mbean>
+ </server>

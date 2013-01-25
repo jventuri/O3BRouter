@@ -1,0 +1,11 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+
+  <xs:element name="oid-values" type="hybridRouterGetOidValue"/>
+
+  <xs:complexType name="hybridRouterGetOidValue">
+    <xs:sequence>
+      <xs:element name="field" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="uri" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>

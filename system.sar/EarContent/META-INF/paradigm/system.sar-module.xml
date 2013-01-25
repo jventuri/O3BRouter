@@ -1,0 +1,119 @@
+<app-spec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xxx-module.xsd">
+    <version>1.0</version>
+    <entity-definitions>
+        <all-apps>
+            <app name="system.sar">
+                <appchooser-title>system.sar</appchooser-title>
+                <app-icon></app-icon>
+                <app-name>system.sar</app-name>
+                <description>system.sar description</description>
+                <description-icon></description-icon>
+                <home-icon></home-icon>
+                <home-task/>
+                <home-workspace/>
+                <hover-image></hover-image>
+                <icon></icon>
+           		<icon-path></icon-path>
+            	<seq>1000</seq>
+                <start-angle>155</start-angle>
+                <title>system.sar</title>
+                <upload-time>1001</upload-time>
+            </app>
+        </all-apps>
+        <all-capabilities>
+             <capability name="system.sarCap" module="system.sar">
+                <title>system.sar capability</title>
+            </capability>
+        </all-capabilities>
+        <all-gadgets>
+        </all-gadgets>
+        <all-guide-steps>
+            <!-- Guide for provisioning a service -->
+         </all-guide-steps>
+        <all-guides>
+         </all-guides>
+        <all-mostates>
+         </all-mostates>
+        <all-motypes>
+        </all-motypes>
+        <all-roles>
+            <role name="system.sarRole" module="system.sar">
+                <predefined>true</predefined>
+                <sharable>true</sharable>
+                <title>system.sar Role</title>
+            </role>
+        </all-roles>
+        <all-service-properties>
+		</all-service-properties>
+		<all-services>
+		</all-services>
+        <all-tasks>
+            <task name="system.sarSampleTask" module="system.sar" capability="system.sarCap" workspace="system.sarWS">
+		    <addToRibbon>false</addToRibbon>
+                <hoverIcon></hoverIcon>
+                <icon></icon>
+		    <isEnabledByDefault>false</isEnabledByDefault>
+       <long-doc-path/>
+		<parent-task-name/>                
+		<selIcon></selIcon>
+                <seq>1</seq>
+		<smallIcon/>
+		<stepTask>false</stepTask>
+        <title>Sample Task</title>
+        <tooltip>Sample Task</tooltip>
+        <uiConfig>   
+               <jsTask>
+                   <jsConfig>
+			              <debug>true</debug>
+                          <className>Js.system.sarsampletask.system.sarSampleTask</className>
+                          <basePath>/ui/virtualarmor/hybrid-router/js</basePath>
+                          <namespaces>
+                              <namespace name="Js">tasks</namespace>
+                           </namespaces>
+                           <params>
+                           </params>
+                   </jsConfig>
+				<cssConfig>
+					<files></files>
+				</cssConfig>
+            </jsTask>
+      </uiConfig>
+            </task>
+        </all-tasks>
+        <all-workspaces>
+            <workspace name="system.sarWS">
+                <description>system.sar WorkSpace</description>
+                <helpUrl>/../ui/virtualarmor/hybrid-router/help/system.sarWS-index.html</helpUrl>
+                <hoverIcon></hoverIcon>
+                <icon></icon>
+                <landingpage></landingpage>
+                <selIcon></selIcon>
+                <seq>1</seq>
+                <smallIcon></smallIcon>
+                <title>system.sar Workspace</title>
+            </workspace>
+        </all-workspaces>
+    </entity-definitions>
+
+    <external-entities>
+        <external-workspaces>
+            <workspace name="DashBoard"/>
+        </external-workspaces>
+    </external-entities>
+
+    <relation-definitions>
+        <app-workspaces>
+            <app name="system.sar">
+               <workspace>system.sarWS</workspace>
+            </app>
+        </app-workspaces>
+        <motype-tasks>
+        </motype-tasks>
+        <role-capabilities>
+            <role name="system.sarRole">
+             <capability>system.sarCap</capability>
+             </role>
+        </role-capabilities>
+    </relation-definitions>
+
+</app-spec>
