@@ -9,7 +9,7 @@
                 <description>Manages the O3B Network</description>
                 <description-icon>../ui/virtualarmor/hybrid-router/images/apps/o3bAppTooltip.png</description-icon>
                 <home-icon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</home-icon>
-                <home-task></home-task>
+                <home-task>DeviceValues</home-task>
                 <home-workspace>HybridRouterWS</home-workspace>
                 <hover-image>o3bAppHover.png</hover-image>
                 <icon>o3bApp.png</icon>
@@ -52,7 +52,7 @@
                 <smallIcon></smallIcon>
                 <stepTask>false</stepTask>
                 <title>SNMP Device Values</title>
-                <tooltip></tooltip>
+                <tooltip>Retrieves values from a device</tooltip>
                 <uiConfig>
                     <jsTask>
                         <jsConfig>
