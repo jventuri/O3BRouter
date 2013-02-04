@@ -1,5 +1,23 @@
 <packages version="1.2">
    <package exploded="false" inWorkspace="false" name="HybridRouter.ear" todir="./bin/" type="jar">
+    <package exploded="false" inWorkspace="true" name="HybridRouterProtoWeb.war" todir="HybridRouterProtoWeb">
+      <fileset dir="/HybridRouterProtoWeb/web" flatten="false" inWorkspace="true" includes="**/*">
+        <properties/>
+      </fileset>
+      <folder name="WEB-INF">
+        <folder name="lib">
+          <properties/>
+        </folder>
+        <folder name="classes">
+          <fileset dir="/HybridRouterProtoWeb/build/classes" flatten="false" inWorkspace="true" includes="**/*">
+            <properties/>
+          </fileset>
+          <properties/>
+        </folder>
+        <properties/>
+      </folder>
+      <properties/>
+    </package>
     <package exploded="false" inWorkspace="true" name="SnmpManagerUtil.jar" todir="C:\Development\GitHub\localRepo\O3BRouter\HybridRouter\EarContent\lib\SnmpManagerUtil">
       <fileset dir="/SnmpManagerUtil/build/classes" flatten="false" inWorkspace="true" includes="**/*">
         <properties/>

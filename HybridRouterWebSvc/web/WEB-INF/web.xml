@@ -1,6 +1,16 @@
 <web-app version="2.4">
     <display-name>Archetype Created Web Application</display-name>
    
+   <!-- Turn on Jersey logging, make sure to disable this for Production -->
+   <init-param>
+  		<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+  		<param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+   </init-param>
+   <init-param>
+  		<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+ 		<param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+	</init-param>
+
     <context-param>
         <param-name>resteasy.scan</param-name>
         <param-value>true</param-value>

@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
@@ -23,6 +25,8 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SnmpManager
 {
+	private static Logger logger = Logger.getLogger(SnmpManager.class);
+	
 	private Snmp snmp;
 	private String address;
 
@@ -44,6 +48,7 @@ public class SnmpManager
 			initialize();
 		} catch (IOException e)
 		{
+			logger.error("IOException in SnmpManager constructor: " + e.getMessage());
 			throw new RuntimeException(e);
 		}
 

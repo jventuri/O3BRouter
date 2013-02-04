@@ -1,0 +1,24 @@
+<!--<rest-mapping>
+		<sourceProject>Add Source Project Name here</sourceProject>
+		<source>Add Source Interface Name here</source>
+		<sourceImpl>Add Source Implementation Name here</sourceImpl>
+		<sourceImplProject>Add Source Implementation Project Name here</sourceImplProject>
+		<targetProject>Add Target Project Name here</targetProject>
+		<target>Add REST Interface Name here</target>
+		<targetImpl>Add REST Implementation Name here</targetImpl>
+		<version>Add REST version</version>
+	</rest-mapping>
+-->
+<rest-mappings>
+  <rest-mapping>
+    <sourceProject>HybridRouterEJB</sourceProject>
+    <source>vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote</source>
+    <sourceImpl>vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfBean.java</sourceImpl>
+    <sourceImplProject>HybridRouterEJB</sourceImplProject>
+    <targetProject>HybridRouterWebSvc</targetProject>
+    <target>vnd.virtualarmor.hybridrouter.services.netdevice.rest.v1.ManageNetConfRemoteRest</target>
+    <targetImpl>vnd.virtualarmor.hybridrouter.services.netdevice.rest.v1.ManageNetConfRemoteRestImpl</targetImpl>
+    <version>1</version>
+    <master>self</master>
+  </rest-mapping>
+</rest-mappings>

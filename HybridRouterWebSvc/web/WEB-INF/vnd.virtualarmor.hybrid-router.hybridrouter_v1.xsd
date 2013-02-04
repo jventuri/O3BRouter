@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="hybrid-router" type="snmpDeviceRestImpl"/>
+  <xs:element name="hybrid-router" type="manageNetConfRemoteRestImpl"/>
 
-  <xs:complexType name="snmpDeviceRestImpl">
+  <xs:complexType name="manageNetConfRemoteRestImpl">
     <xs:complexContent>
       <xs:extension base="webSvcAbstract">
         <xs:sequence>

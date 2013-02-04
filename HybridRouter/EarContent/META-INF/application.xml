@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:application="http://java.sun.com/xml/ns/javaee/application_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd">
   <display-name>HybridRouter</display-name>
-    <module id="myeclipse.1267221003033">
-    	<ejb>system.sar</ejb>
-  	</module>
-  
-<module>
+  <module id="myeclipse.1267221003033">
+    <ejb>system.sar</ejb>
+  </module>
+  <module>
     <web>
       <web-uri>HybridRouterWeb.war</web-uri>
       <context-root>/ui/virtualarmor/hybrid-router</context-root>
     </web>
   </module>
-<module>
+  <module>
     <ejb>HybridRouterEJB.jar</ejb>
   </module>
-<module>
+  <module>
     <web>
       <web-uri>HybridRouterWebSvc.war</web-uri>
       <context-root>/api/virtualarmor/hybrid-router</context-root>

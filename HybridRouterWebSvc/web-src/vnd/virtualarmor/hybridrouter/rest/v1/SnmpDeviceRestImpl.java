@@ -61,8 +61,10 @@ public class SnmpDeviceRestImpl extends WebSvcAbstract implements
 			wrapperDTO.setField(getBean().getOidValue(deviceAddress, port,
 					community, oid));
 		} catch (WebApplicationException e) {
+			logger.error("WebApplicationException getting oid value: " + e.getMessage());
 			throw e;
 		} catch (Exception e) {
+			logger.error("Exception getting oid value: " + e.getMessage());
 			throw new WebApplicationException(e);
 		} finally {
 			//TODO: Auto generated code
