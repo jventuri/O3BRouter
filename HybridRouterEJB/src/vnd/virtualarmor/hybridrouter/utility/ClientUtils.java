@@ -14,8 +14,6 @@ import net.juniper.jmp.security.JSServiceClient;
 import com.sun.jersey.api.client.Client;
 
 public class ClientUtils {
-	private static final String BASE_URL = "http://127.0.0.1:8080";
-	private static Logger logger = Logger.getLogger(ClientUtils.class);
 
 	/**
 	 * Create a Jersey HTTP client.
@@ -35,18 +33,14 @@ public class ClientUtils {
 		authCtxt.setUsername(Constants.USER_REST);
 
 		if (iac.getBaseUrl() == null) {
-			iac.setAuthDetailsAndBaseUrl(authCtxt, BASE_URL);
+			iac.setAuthDetailsAndBaseUrl(authCtxt, Constants.BASE_URL);
 		} else {
 			iac.setAuthDetailsAndBaseUrl(authCtxt, iac.getBaseUrl());
 		}
-
-		logger.warn("in ClientUtils.setupHttpClient, iac.getBaseUrl()="
-				+ iac.getBaseUrl());
 
 		// Create a client for communication with HTTP-based REST Web services
 		JSServiceClient client = new JSServiceClient(apic);
 
 		return client.jerseyHttpClient();
 	}
-
 }

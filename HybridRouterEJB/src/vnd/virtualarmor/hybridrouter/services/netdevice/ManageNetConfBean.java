@@ -1,15 +1,15 @@
 package vnd.virtualarmor.hybridrouter.services.netdevice;
 
-import java.util.ArrayList;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import net.juniper.jmp.ApiContext;
-import net.juniper.jmp.cems.deviceScriptManager.service.dto.v2.ScriptMgmts.Device;
-import net.juniper.jmp.cems.deviceScriptManager.service.dto.v2.ScriptMgmts.Script;
-import net.juniper.jmp.cems.deviceScriptManager.service.dto.v2.ScriptMgmts.ScriptMgmt;
-import net.juniper.jmp.cems.deviceScriptManager.service.dto.v2.ScriptMgmts.ScriptParams;
 import net.juniper.jmp.cmp.serviceApiCommon.InternalApiContext;
 import net.juniper.jmp.security.JSServiceClient;
 
@@ -18,10 +18,17 @@ import org.apache.log4j.Logger;
 
 import vnd.virtualarmor.hybridrouter.Constants;
 import vnd.virtualarmor.hybridrouter.VendorConstants;
+import vnd.virtualarmor.hybridrouter.model.Device;
+import vnd.virtualarmor.hybridrouter.model.ExecScripts;
+import vnd.virtualarmor.hybridrouter.model.Script;
+import vnd.virtualarmor.hybridrouter.model.ScriptMgmt;
+import vnd.virtualarmor.hybridrouter.model.ScriptParam;
+import vnd.virtualarmor.hybridrouter.model.ScriptParams;
+import vnd.virtualarmor.hybridrouter.model.TaskResponse;
+import vnd.virtualarmor.hybridrouter.utility.XmlUtils;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.filter.LoggingFilter;
 
 /**
  * Session Bean implementation class ManageNetConfBean
@@ -40,7 +47,6 @@ public class ManageNetConfBean implements ManageNetConfRemote {
 	 * Default constructor.
 	 */
 	public ManageNetConfBean() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -56,7 +62,7 @@ public class ManageNetConfBean implements ManageNetConfRemote {
 	public void execScript(ApiContext apic, Long deviceId, Long scriptId) {
 
 		// logging jersey
-		Logger.getLogger("com.sun.jersey").setLevel(Level.ALL);
+		Logger.getLogger("com.sun.jersey").setLevel(Level.DEBUG);
 
 		InternalApiContext iac = (InternalApiContext) apic;
 
@@ -64,41 +70,43 @@ public class ManageNetConfBean implements ManageNetConfRemote {
 		JSServiceClient client = new JSServiceClient(apic);
 		Client jerseyClient = client.jerseyHttpClient();
 
-		// run exec-scripts REST API
+		// build the URL
 		String execScriptUrl = iac.getBaseUrl()
 				+ VendorConstants.SPACE_URL_PREFIX
 				+ "/script-management/scripts/exec-scripts?queue="
 				+ iac.getBaseUrl() + "/api/hornet-q/queues/"
 				+ Constants.QUEUE_NAME;
 
-		jerseyClient.addFilter(new LoggingFilter(System.out));
+		ExecScripts execScripts = createRequestDTO(deviceId, scriptId);
 
-		// ScriptMgmt scriptMgmt = genScriptMgmtDTO(deviceId, scriptId);
-
-		String reqBody = getRequestBody(deviceId, scriptId);
-
+		// call exec-scripts REST API
 		ClientResponse response = jerseyClient
 				.resource(execScriptUrl)
 				.accept(VendorConstants.SPACE_DATATYPE_PREFIX
 						+ ".script-management.exec-scripts+xml;version=2")
 				.type(VendorConstants.SPACE_DATATYPE_PREFIX
 						+ ".script-management.exec-scripts+xml;version=2;charset=UTF-8")
-				.post(ClientResponse.class, reqBody);
+				.post(ClientResponse.class, execScripts);
+
+		String entity = response.getEntity(String.class);
 
 		if (response.getClientResponseStatus() != ClientResponse.Status.ACCEPTED) {
-			String errorMsg = response.getEntity(String.class);
 			logger.error("execScript REST failed with status: "
 					+ response.getClientResponseStatus() + " and reason: "
 					+ response.getClientResponseStatus().getReasonPhrase()
-					+ " and error message: " + errorMsg);
-			return;
+					+ " and error message: " + entity);
+		} else {
+			TaskResponse tr = createResponseObject(entity);
+			
+//TODO listen on the queue for the job status
+			int id = tr.getId();
 		}
+		return;
 
 	}
 
+	// Builds a request body for exec-scripts
 	private String getRequestBody(Long deviceId, Long scriptId) {
-		// look at Jersey client side API (JAX-RS MessageBodyWriter classes) and
-		// alsoo support for JAXB-based generation of XML from domain objects.
 
 		StringBuffer scriptHref = new StringBuffer(
 				"<script href=\"/api/space/script-management/scripts/").append(
@@ -117,33 +125,64 @@ public class ManageNetConfBean implements ManageNetConfRemote {
 		return requestBody.toString();
 	}
 
-	private ScriptMgmt genScriptMgmtDTO(Long deviceId, Long scriptId) {
+	// Creates the Request DTO
+	private ExecScripts createRequestDTO(Long deviceId, Long scriptId) {
 		ScriptMgmt sm = new ScriptMgmt();
 
+		// Device
 		Device device = new Device();
-		device.setUri("/api/space/device-management/devices/"
+		device.setHref("/api/space/device-management/devices/"
 				+ deviceId.toString());
 		sm.setDevice(device);
 
+		// Script
 		Script script = new Script();
-		script.setUri("/api/space/script-management/scripts/"
+		script.setHref("/api/space/script-management/scripts/"
 				+ scriptId.toString());
 		sm.setScript(script);
 
-		ArrayList<ScriptParams> scriptParams = new ArrayList<ScriptParams>();
-		ScriptParams sp1 = new ScriptParams();
+		ScriptParams scriptParams = new ScriptParams();
+
+		ScriptParam sp1 = new ScriptParam();
 		sp1.setParamName("policy-name");
 		sp1.setParamValue("testMarksScript");
-		scriptParams.add(sp1);
+		scriptParams.getScriptParam().add(sp1);
 
-		ScriptParams sp2 = new ScriptParams();
+		ScriptParam sp2 = new ScriptParam();
 		sp2.setParamName("silent");
 		sp2.setParamValue("0");
-		scriptParams.add(sp2);
+		scriptParams.getScriptParam().add(sp2);
 
 		sm.setScriptParams(scriptParams);
 
-		return sm;
+		ExecScripts es = new ExecScripts();
+		es.getScriptMgmt().add(sm);
+
+		return es;
+	}
+
+	// Creates an object from the exec-scripts xml response
+	private TaskResponse createResponseObject(String xml) {
+		TaskResponse taskResponse = new TaskResponse();
+
+		try {
+			final JAXBContext context = JAXBContext
+					.newInstance(TaskResponse.class);
+
+			final StringWriter stringWriter = new StringWriter();
+			stringWriter.append(xml);
+
+			final Unmarshaller unmarshaller = context.createUnmarshaller();
+
+			// Unmarshal the XML in the stringWriter back into an object
+			taskResponse = (TaskResponse) unmarshaller
+					.unmarshal(new StringReader(stringWriter.toString()));
+		} catch (JAXBException e) {
+			logger.error("Exception converting XML " + xml
+					+ " to a Response object.  Exception is: " + e.getMessage());
+		}
+
+		return taskResponse;
 	}
 
 }

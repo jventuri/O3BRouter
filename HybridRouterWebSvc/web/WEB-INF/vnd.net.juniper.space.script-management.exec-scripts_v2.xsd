@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="device" type="device" />
+
+	<xs:element name="exec-scripts" type="execScripts" />
+
+	<xs:element name="script" type="script" />
+
+	<xs:element name="scriptMgmt" type="scriptMgmt" />
+
+	<xs:element name="scriptParam" type="scriptParams" />
+
+	<xs:complexType name="scriptMgmt">
+		<xs:all>
+			<xs:element ref="script" />
+			<xs:element name="scriptVersionSelected" type="xs:float"
+				minOccurs="0" />
+			<xs:element ref="device" />
+			<xs:element name="scriptParams" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="scriptParam" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="script">
+		<xs:sequence />
+		<xs:attribute name="href" type="xs:string" />
+		<xs:attribute name="uri" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="device">
+		<xs:sequence />
+		<xs:attribute name="href" type="xs:string" />
+		<xs:attribute name="uri" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="scriptParams">
+		<xs:all>
+			<xs:element name="paramName" type="xs:string" />
+			<xs:element name="paramValue" type="xs:string" />
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="execScripts">
+		<xs:sequence>
+			<xs:element ref="scriptMgmt" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
