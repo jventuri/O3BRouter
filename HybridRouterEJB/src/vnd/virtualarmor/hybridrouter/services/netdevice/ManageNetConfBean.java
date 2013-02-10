@@ -3,6 +3,7 @@ package vnd.virtualarmor.hybridrouter.services.netdevice;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.xml.bind.JAXBContext;
@@ -12,6 +13,7 @@ import javax.xml.bind.Unmarshaller;
 import net.juniper.jmp.ApiContext;
 import net.juniper.jmp.cmp.serviceApiCommon.InternalApiContext;
 import net.juniper.jmp.security.JSServiceClient;
+import net.juniper.jmp.websvc.helper.JSAuditlogHelper;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -25,7 +27,6 @@ import vnd.virtualarmor.hybridrouter.model.ScriptMgmt;
 import vnd.virtualarmor.hybridrouter.model.ScriptParam;
 import vnd.virtualarmor.hybridrouter.model.ScriptParams;
 import vnd.virtualarmor.hybridrouter.model.TaskResponse;
-import vnd.virtualarmor.hybridrouter.utility.XmlUtils;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -33,9 +34,11 @@ import com.sun.jersey.api.client.ClientResponse;
 /**
  * Session Bean implementation class ManageNetConfBean
  */
-@Stateless(name = "ManageNetConfRemote")
-@Remote({ ManageNetConfRemote.class })
-public class ManageNetConfBean implements ManageNetConfRemote {
+
+@Stateless(name = "ManageNetConfBean")
+@Local(ManageNetConfLocal.class)
+@Remote(ManageNetConfRemote.class)
+public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLocal {
 
 	/**
 	 * Instance Logger to log messages
@@ -78,7 +81,7 @@ public class ManageNetConfBean implements ManageNetConfRemote {
 				+ Constants.QUEUE_NAME;
 
 		ExecScripts execScripts = createRequestDTO(deviceId, scriptId);
-
+		
 		// call exec-scripts REST API
 		ClientResponse response = jerseyClient
 				.resource(execScriptUrl)
@@ -97,9 +100,7 @@ public class ManageNetConfBean implements ManageNetConfRemote {
 					+ " and error message: " + entity);
 		} else {
 			TaskResponse tr = createResponseObject(entity);
-			
-//TODO listen on the queue for the job status
-			int id = tr.getId();
+			JSAuditlogHelper.addDescriptionToAuditLog("HybridRouter - Submitted configuration update for device '" + deviceId + "'. Job ID is" + tr.getId());
 		}
 		return;
 

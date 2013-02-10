@@ -6,6 +6,7 @@ import net.juniper.jmp.ApiContext;
 import net.juniper.jmp.cmp.serviceApiCommon.InternalApiContext;
 import net.juniper.jmp.cmp.system.AppEnabledCallback;
 import net.juniper.jmp.cmp.system.AppInitBasicContext;
+import net.juniper.jmp.cmp.system.JxServiceLocator;
 import net.juniper.jmp.cmp.system.appinit.AppInitContext;
 import net.juniper.jmp.security.JSServiceClient;
 import net.juniper.jmp.webSvc.security.AuthorizationContext;
@@ -13,6 +14,8 @@ import net.juniper.jmp.webSvc.security.AuthorizationContext;
 import org.apache.log4j.Logger;
 
 import vnd.virtualarmor.hybridrouter.Constants;
+import vnd.virtualarmor.hybridrouter.services.netdevice.SnmpPollingBeanLocal;
+import vnd.virtualarmor.hybridrouter.services.netdevice.SnmpPollingBeanRemote;
 import vnd.virtualarmor.hybridrouter.utility.ClientUtils;
 
 import com.sun.jersey.api.client.Client;
@@ -24,7 +27,8 @@ import com.sun.jersey.api.client.ClientResponse.Status;
  * 
  */
 @Stateless(name = "HybridRouter.AppEnabledCallbackEJB")
-public class InitHybridRouterLocal implements AppEnabledCallback {
+public class InitHybridRouterLocal implements AppEnabledCallback
+{
 	Logger logger = Logger.getLogger(InitHybridRouterLocal.class);
 
 	/**
@@ -32,23 +36,29 @@ public class InitHybridRouterLocal implements AppEnabledCallback {
 	 * every time the App is deployed, or jboss is restarted.
 	 */
 	@Override
-	public void execute(AppInitBasicContext ctx) throws Exception {
+	public void execute(AppInitBasicContext ctx) throws Exception
+	{
 
-		// only run this code once, independent of how many cluster nodes there are
-		if (ctx.isMasterNode()) {
+		// only run this code once, independent of how many cluster nodes there
+		// are
+		if (ctx.isMasterNode())
+		{
 			// Get the context state
 			String attr = null;
-			try {
+			try
+			{
 				AppInitContext ctx2 = (AppInitContext) ctx;
 				attr = (String) ctx2
 						.getAttribute(AppInitContext.APPSTARTSTATE_ATTR);
-			} catch (Exception ex) {
+			} catch (Exception ex)
+			{
 				logger.error("Failed to get context state: " + ex.getMessage());
 				return;
 			}
 
 			// Run initialization on fresh install of the application
-			if (AppInitContext.APPSTARTSTATE_FRESHINSTALL.equals(attr)) {
+			if (AppInitContext.APPSTARTSTATE_FRESHINSTALL.equals(attr))
+			{
 				InternalApiContext apic = new InternalApiContext();
 				Client client = ClientUtils.setupHttpClient(apic);
 				ClientResponse response = null;
@@ -58,7 +68,8 @@ public class InitHybridRouterLocal implements AppEnabledCallback {
 						.append(Constants.HORNETQ_PATH).append("/")
 						.append(Constants.QUEUE_NAME);
 				response = client.resource(queueUri.toString()).head();
-				if (response.getClientResponseStatus() != ClientResponse.Status.OK) {
+				if (response.getClientResponseStatus() != ClientResponse.Status.OK)
+				{
 					// Queue does not exist, lets create one
 					String queueName = "<queue name=\"" + Constants.QUEUE_NAME
 							+ "\"><durable>true</durable></queue>";
@@ -72,7 +83,8 @@ public class InitHybridRouterLocal implements AppEnabledCallback {
 							.type("application/hornetq.jms.queue+xml")
 							.post(ClientResponse.class, queueName);
 
-					if (response.getClientResponseStatus() != ClientResponse.Status.CREATED) {
+					if (response.getClientResponseStatus() != ClientResponse.Status.CREATED)
+					{
 						Status stat = response.getClientResponseStatus();
 						int statusCode = stat.getStatusCode();
 						String reason = stat.getReasonPhrase();
@@ -83,12 +95,19 @@ public class InitHybridRouterLocal implements AppEnabledCallback {
 								+ ". reason is: " + reason + ". Error msg is: "
 								+ errorMsg);
 						return;
-					} else {
+					} else
+					{
 						logger.info("Successfully created queue resource '"
 								+ queueName);
 					}
-
 				}
+
+				logger.debug("InitHybridRouterLocal b4 calling snmpPolling.init()");
+				// Create and initialize SNMP polling timer
+				SnmpPollingBeanRemote snmpPolling = JxServiceLocator
+						.lookup("SnmpPollingBean");
+				snmpPolling.init();
+				logger.debug("InitHybridRouterLocal after calling snmpPolling.init()");
 			}
 		}
 

@@ -6,8 +6,6 @@ package vnd.virtualarmor.hybridrouter;
 public class Constants {
 
 	public static String PROPERTIES_FILE = "HybridRouter.properties";
-//public static String REST_USER = "super";
-//	public static String REST_PASSWORD="v1rtualarmor";
 	public static String BASE_URL = "http://127.0.0.1:8080";
 
 	//Property keys

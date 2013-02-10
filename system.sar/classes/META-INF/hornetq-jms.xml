@@ -3,7 +3,7 @@
  <!-- Queue Configurations -->
 	
 	<queue name="HybridRouterJobsQueue">
-        <entry name="queue/HybridRouterJobsQueue"/>
+        <entry name="queue/jms.queue.HybridRouterJobsQueue"/>
     </queue>
 
 </configuration>

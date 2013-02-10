@@ -64,6 +64,7 @@ public class ManageNetConfRemoteRestImpl extends WebSvcAbstract implements
 
 		try {
 			getBean().execScript(uriContext.getApicontext(), deviceId, scriptId);
+			JSAuditlogHelper.addDescriptionToAuditLog("Submitting configuration update for device '" + deviceId + "'");
 		} catch (Exception e) {
 			JSAuditlogHelper.addDescriptionToAuditLog("Exception  occurred "
 					+ e.getMessage());
