@@ -3,6 +3,7 @@ package vnd.virtualarmor.hybridrouter.services.netdevice;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.ejb.Local;
@@ -26,6 +27,7 @@ import vnd.virtualarmor.hybridrouter.Constants;
 import vnd.virtualarmor.hybridrouter.VendorConstants;
 import vnd.virtualarmor.hybridrouter.model.OidValueResponse;
 import vnd.virtualarmor.hybridrouter.model.PollingTimerInfo;
+import vnd.virtualarmor.hybridrouter.utility.PropertyManager;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -75,9 +77,9 @@ public class SnmpPollingBean implements TimedObject, SnmpPollingBeanLocal,
 			pti.setFailedCount(0);
 			pti.setName("SnmpPollingTimer");
 
-			// create the timer, starting 1 minute from now and running every 5
+			// create the timer, starting 30 seconds from now and running every 5
 			// seconds
-			timerService.createTimer(60000, 5000, pti);
+			timerService.createTimer(30000, 5000, pti);
 			logger.debug("Successfully created SnmpPollingTimer timer!");
 		}
 	}
@@ -109,17 +111,22 @@ public class SnmpPollingBean implements TimedObject, SnmpPollingBeanLocal,
 					// if exceeds tolerance then update configuration
 					if (failedCount >= 5)
 					{
+						// read demo properties
+						Properties props = PropertyManager
+								.loadProperties(Constants.PROPERTY_FILE_NAME);
+						String demoScriptId = props
+								.getProperty(Constants.DEMO_SCRIPT_PROP);
+						String demoDeviceId = props
+								.getProperty(Constants.DEMO_DEVICE_PROP);
+
 						// update the configuration
 						// Create and initialize SNMP polling timer
 						ManageNetConfLocal manageNetConf = ManageNetConfLocal.Naming
 								.getInstance();
 
-						// TODO for automated device update I need to know the
-						// device ID and script ID - needs to come
-						// from somewhere!!
 						manageNetConf.execScript(createApiContext(),
-								Constants.TEST_DEVICE_ID,
-								Constants.DYNAMIC_OP_SLAX_ID);
+								Long.valueOf(demoDeviceId),
+								Long.valueOf(demoScriptId));
 
 						// reset the counter
 						failedCount = 0;

@@ -38,6 +38,5 @@
 	<classpathentry kind="lib" path="/HybridRouter/lib/javax.persistence_2.0.3.v201010191057.jar"/>
 	<classpathentry exported="true" kind="src" path="/SnmpManagerUtil"/>
 	<classpathentry kind="lib" path="/HybridRouter/EarContent/lib/junos-space/SDK-WebSvc-Common.jar"/>
-	<classpathentry kind="lib" path="/HybridRouter/EarContent/lib/junos-space/SDK-Interceptors.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -102,12 +102,10 @@ public class InitHybridRouterLocal implements AppEnabledCallback
 					}
 				}
 
-				logger.debug("InitHybridRouterLocal b4 calling snmpPolling.init()");
 				// Create and initialize SNMP polling timer
 				SnmpPollingBeanRemote snmpPolling = JxServiceLocator
 						.lookup("SnmpPollingBean");
 				snmpPolling.init();
-				logger.debug("InitHybridRouterLocal after calling snmpPolling.init()");
 			}
 		}
 

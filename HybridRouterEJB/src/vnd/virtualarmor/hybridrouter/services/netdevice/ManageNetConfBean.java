@@ -13,7 +13,6 @@ import javax.xml.bind.Unmarshaller;
 import net.juniper.jmp.ApiContext;
 import net.juniper.jmp.cmp.serviceApiCommon.InternalApiContext;
 import net.juniper.jmp.security.JSServiceClient;
-import net.juniper.jmp.websvc.helper.JSAuditlogHelper;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -100,7 +99,6 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 					+ " and error message: " + entity);
 		} else {
 			TaskResponse tr = createResponseObject(entity);
-			JSAuditlogHelper.addDescriptionToAuditLog("HybridRouter - Submitted configuration update for device '" + deviceId + "'. Job ID is" + tr.getId());
 		}
 		return;
 
