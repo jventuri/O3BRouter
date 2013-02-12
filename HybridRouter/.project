@@ -3,7 +3,6 @@
 	<name>HybridRouter</name>
 	<comment>EAR_PROJECT</comment>
 	<projects>
-		<project>HybridRouterWeb</project>
 		<project>HybridRouterEJB</project>
 		<project>system.sar</project>
 		<project>HybridRouterWebSvc</project>

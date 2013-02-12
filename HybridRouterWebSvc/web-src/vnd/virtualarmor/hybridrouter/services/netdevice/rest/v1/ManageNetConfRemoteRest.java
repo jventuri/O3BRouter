@@ -39,7 +39,7 @@ public interface ManageNetConfRemoteRest {
 	 * default method
 	 */
 	@Path("/")
-	@GET
+	@POST
 	@Produces({
 			VendorConstants.APP_DATATYPE_PREFIX + ".hybridrouter+xml;version=1",
 			VendorConstants.APP_DATATYPE_PREFIX

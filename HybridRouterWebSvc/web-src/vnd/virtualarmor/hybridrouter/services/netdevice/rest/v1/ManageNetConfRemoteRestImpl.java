@@ -1,6 +1,9 @@
 package vnd.virtualarmor.hybridrouter.services.netdevice.rest.v1;
 
 import org.apache.log4j.Logger;
+
+import vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote;
+
 import javax.ws.rs.WebApplicationException;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -90,8 +93,10 @@ public class ManageNetConfRemoteRestImpl extends WebSvcAbstract implements
 	 */
 	private vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote getBean() {
 		if (managenetconfremote == null) {
-			managenetconfremote = JxServiceLocator
-					.lookup("ManageNetConfRemote");
+			managenetconfremote = ManageNetConfRemote.Naming.getInstance();
+			
+		//	managenetconfremote = JxServiceLocator
+			//		.lookup("ManageNetConfRemote");
 		}
 		return managenetconfremote;
 	}

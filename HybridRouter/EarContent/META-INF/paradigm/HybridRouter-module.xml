@@ -69,9 +69,9 @@
                         </cssConfig>
                     </jsTask>
                 </uiConfig>
-            </task>
+            </task>     
         </all-tasks>
-        <all-workspaces>
+        <all-workspaces>      
             <workspace name="HybridRouterWS">
                 <description>Device Management</description>
                 <helpUrl>/../ui/virtualarmor/hybrid-router/help/HybridRouterWS-index.html</helpUrl>
@@ -82,7 +82,7 @@
                 <seq>1</seq>
                 <smallIcon>../ui/virtualarmor/hybrid-router/images/apps/o3bApp24.png</smallIcon>
                 <title>Manage O3B Devices</title>
-            </workspace>
+            </workspace> 
         </all-workspaces>
     </entity-definitions>
     <external-entities>
@@ -91,10 +91,10 @@
         </external-workspaces>
     </external-entities>
     <relation-definitions>
-        <app-workspaces>
+        <app-workspaces>      
             <app name="HybridRouter">
                 <workspace>HybridRouterWS</workspace>
-            </app>
+            </app>          
         </app-workspaces>
         <motype-tasks/>
         <role-capabilities>

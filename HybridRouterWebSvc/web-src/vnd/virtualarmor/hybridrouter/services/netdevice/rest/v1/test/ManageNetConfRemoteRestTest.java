@@ -138,13 +138,15 @@ public final class ManageNetConfRemoteRestTest {
 						.resource(request_URL)
 						.accept(VendorConstants.APP_DATATYPE_PREFIX
 								+ ".hybridrouter.oid-value+xml;version=1")
-						.get(ClientResponse.class);
+								.post(ClientResponse.class);
+					//	.get(ClientResponse.class);
 			} else if (MediaType.APPLICATION_JSON.equals(dataType)) {
 				clientResponse = jerseyClient
 						.resource(request_URL)
 						.accept(VendorConstants.APP_DATATYPE_PREFIX
 								+ ".hybridrouter.oid-value+json;version=1")
-						.get(ClientResponse.class);
+								.post(ClientResponse.class);
+				//		.get(ClientResponse.class);
 			} else if (APPLICATION_CUSTOM_TYPE.equals(dataType)) {
 				clientResponse = jerseyClient
 						.resource(request_URL)
