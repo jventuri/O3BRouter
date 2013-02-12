@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Local;
 import javax.ejb.Remote;
@@ -47,7 +48,6 @@ public class SnmpPollingBean implements TimedObject, SnmpPollingBeanLocal,
 	@Resource
 	TimerService timerService;
 
-	// @PostConstruct
 	public void init()
 	{
 		boolean timerExists = false;

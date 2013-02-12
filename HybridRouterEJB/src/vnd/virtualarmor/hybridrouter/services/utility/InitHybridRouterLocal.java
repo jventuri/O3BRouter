@@ -2,19 +2,15 @@ package vnd.virtualarmor.hybridrouter.services.utility;
 
 import javax.ejb.Stateless;
 
-import net.juniper.jmp.ApiContext;
 import net.juniper.jmp.cmp.serviceApiCommon.InternalApiContext;
 import net.juniper.jmp.cmp.system.AppEnabledCallback;
 import net.juniper.jmp.cmp.system.AppInitBasicContext;
 import net.juniper.jmp.cmp.system.JxServiceLocator;
 import net.juniper.jmp.cmp.system.appinit.AppInitContext;
-import net.juniper.jmp.security.JSServiceClient;
-import net.juniper.jmp.webSvc.security.AuthorizationContext;
 
 import org.apache.log4j.Logger;
 
 import vnd.virtualarmor.hybridrouter.Constants;
-import vnd.virtualarmor.hybridrouter.services.netdevice.SnmpPollingBeanLocal;
 import vnd.virtualarmor.hybridrouter.services.netdevice.SnmpPollingBeanRemote;
 import vnd.virtualarmor.hybridrouter.utility.ClientUtils;
 
@@ -101,13 +97,15 @@ public class InitHybridRouterLocal implements AppEnabledCallback
 								+ queueName);
 					}
 				}
-
-				// Create and initialize SNMP polling timer
-				SnmpPollingBeanRemote snmpPolling = JxServiceLocator
-						.lookup("SnmpPollingBean");
-				snmpPolling.init();
 			}
-		}
 
+			logger.warn("Starting up HybridRouter.SnmpPollingBean");
+			// Create and initialize SNMP polling timer
+			SnmpPollingBeanRemote snmpPolling = JxServiceLocator
+					.lookup("SnmpPollingBean");
+			snmpPolling.init();
+		}
+		
+		logger.warn("In HybridRouter.InitHybridRouterLocal.execute");
 	}
 }
