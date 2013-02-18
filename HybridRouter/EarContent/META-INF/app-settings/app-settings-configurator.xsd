@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="configuration" type="configurationType" />
+
+	<xs:complexType name="configurationType">
+		<xs:sequence>
+			<xs:element name="panel" type="panelType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="panelType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="text" type="textType" minOccurs="0" />
+			<xs:element name="integer" type="integerType" minOccurs="0" />
+			<xs:element name="checkbox" type="checkBoxType" minOccurs="0" />
+			<xs:element name="slider" type="sliderType" minOccurs="0" />
+			<xs:element name="combobox" type="comboBoxType" minOccurs="0" />
+			<xs:element name="grid" type="gridType" minOccurs="0" />
+			<xs:element name="panel" type="panelType" minOccurs="0" />
+		</xs:choice>
+		<xs:attribute name="name" type="stringSimpleType" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="checkBoxType">
+		<!-- Space will be converted to hypen separated display name while generating 
+			app-settings.xsd -->
+		<xs:attribute name="label" type="stringSimpleType" use="required" />
+		<xs:attribute name="default" type="xs:boolean" use="optional"
+			default="false" /> <!-- Default value -->
+	</xs:complexType>
+
+
+	<xs:complexType name="textType">
+		<!-- Space will be converted to hypen separated display name while generating 
+			app-settings.xsd -->
+		<xs:attribute name="label" type="stringSimpleType" use="required" />
+		<xs:attribute name="default" type="xs:string" use="optional" /> <!-- Default value -->
+	</xs:complexType>
+
+	<xs:complexType name="integerType">
+		<!-- Space will be converted to hypen separated display name while generating 
+			app-settings.xsd -->
+		<xs:attribute name="label" type="stringSimpleType" use="required" />
+		<xs:attribute name="min-value" type="xs:integer" use="optional" />
+		<!-- Validation be performed at generation time of xsd -->
+		<xs:attribute name="max-value" type="xs:integer" use="optional" />
+		<xs:attribute name="default" type="xs:integer" use="optional"
+			default="0" /> <!-- Default value -->
+	</xs:complexType>
+
+	<xs:complexType name="sliderType">
+		<xs:sequence>
+			<xs:element name="slider-marker" type="sliderMarkerType"
+				minOccurs="0" maxOccurs="1"></xs:element>
+		</xs:sequence>
+		<!-- Space will be converted to hypen separated display name while generating 
+			app-settings.xsd -->
+		<xs:attribute name="label" type="stringSimpleType" use="required" />
+		<xs:attribute name="min-value" type="xs:integer" use="required" />
+		<!-- Validation be performed at generation time of xsd -->
+		<xs:attribute name="max-value" type="xs:integer" use="required" />
+		<xs:attribute name="default" type="xs:integer" use="optional"
+			default="0" /> <!-- Default value -->
+	</xs:complexType>
+
+	<xs:complexType name="sliderMarkerType">
+		<xs:attribute name="label" type="stringSimpleType" use="required" />
+		<xs:attribute name="location" type="sliderLocationType" use="required" />
+	</xs:complexType>
+
+	<xs:simpleType name = "sliderLocationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="start" />
+			<xs:enumeration value="end" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="comboBoxType">
+		<xs:sequence>
+			<xs:element name="item" type="stringSimpleType" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name ="label" type="stringSimpleType" use="required" />
+		<xs:attribute name ="default" type="stringSimpleType" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="gridType">	
+		<xs:sequence>
+			<xs:element name="grid-column" type="gridColumnType" minOccurs="1" maxOccurs="unbounded"/>			
+		</xs:sequence>
+		<xs:attribute name ="label" type="stringSimpleType" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="gridColumnType">
+		<xs:choice minOccurs="0" maxOccurs="1">
+			<xs:element name="text" type="textType" />
+			<xs:element name="integer" type="integerType"  />
+			<xs:element name="checkbox" type="checkBoxType" />			
+			<xs:element name="combobox" type="comboBoxType" />
+			<xs:element name="slider" type="sliderType"/>
+			<xs:element name="grid" type="gridType" />
+		</xs:choice>
+	</xs:complexType>
+	
+	<xs:simpleType name = "stringSimpleType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z])([a-zA-Z0-9 _])+"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+													
+	
+</xs:schema>

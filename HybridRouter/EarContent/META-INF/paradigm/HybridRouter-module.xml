@@ -4,16 +4,16 @@
         <all-apps>
             <app name="HybridRouter">
                 <appchooser-title>O3B Network Management</appchooser-title>
-                <app-icon>../ui/virtualarmor/hybrid-router/images/apps/HybridRouterManager.png</app-icon>
+                <app-icon></app-icon>
                 <app-name>HybridRouter</app-name>
                 <description>Manages the O3B Network</description>
-                <description-icon>../ui/virtualarmor/hybrid-router/images/apps/o3bAppTooltip.png</description-icon>
-                <home-icon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</home-icon>
-                <home-task>DeviceValues</home-task>
-                <home-workspace>HybridRouterWS</home-workspace>
-                <hover-image>o3bAppHover.png</hover-image>
-                <icon>o3bApp.png</icon>
-                <icon-path>/ui/virtualarmor/hybrid-router/images/apps/</icon-path>
+                <description-icon></description-icon>
+                <home-icon></home-icon>
+                <home-task/>
+                <home-workspace/>
+                <hover-image></hover-image>
+                <icon></icon>
+                <icon-path></icon-path>
                 <seq>1000</seq>
                 <start-angle>155</start-angle>
                 <title>O3B Network Management</title>
@@ -41,13 +41,13 @@
         <all-services/>
         <all-tasks>
             <task workspace="HybridRouterWS" name="DeviceValues" module="HybridRouter" capability="HybridRouterCap">
-                <addToRibbon>true</addToRibbon>
-                <hoverIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</hoverIcon>
-                <icon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</icon>
-                <isEnabledByDefault>true</isEnabledByDefault>
+                <addToRibbon>false</addToRibbon>
+                <hoverIcon></hoverIcon>
+                <icon></icon>
+                <isEnabledByDefault>false</isEnabledByDefault>
                 <long-doc-path></long-doc-path>
                 <parent-task-name></parent-task-name>
-                <selIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</selIcon>
+                <selIcon></selIcon>
                 <seq>2</seq>
                 <smallIcon></smallIcon>
                 <stepTask>false</stepTask>
@@ -75,12 +75,12 @@
             <workspace name="HybridRouterWS">
                 <description>Device Management</description>
                 <helpUrl>/../ui/virtualarmor/hybrid-router/help/HybridRouterWS-index.html</helpUrl>
-                <hoverIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</hoverIcon>
-                <icon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</icon>
+                <hoverIcon></hoverIcon>
+                <icon></icon>
                 <landingpage></landingpage>
-                <selIcon>../ui/virtualarmor/hybrid-router/images/apps/O3BHome.png</selIcon>
+                <selIcon></selIcon>
                 <seq>1</seq>
-                <smallIcon>../ui/virtualarmor/hybrid-router/images/apps/o3bApp24.png</smallIcon>
+                <smallIcon></smallIcon>
                 <title>Manage O3B Devices</title>
             </workspace> 
         </all-workspaces>

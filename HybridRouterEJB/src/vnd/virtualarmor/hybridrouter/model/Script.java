@@ -8,6 +8,8 @@
 
 package vnd.virtualarmor.hybridrouter.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -36,9 +38,14 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "script")
-public class Script {
+public class Script implements Serializable{
 
-    @XmlAttribute
+    /**
+	 * generated serial id
+	 */
+	private static final long serialVersionUID = -5364674774203919722L;
+	
+	@XmlAttribute
     protected String href;
     @XmlAttribute
     protected String uri;

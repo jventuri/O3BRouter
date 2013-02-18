@@ -6,6 +6,9 @@ import net.juniper.jmp.annotation.rbac.CRUDEnum;
 import net.juniper.jmp.annotation.rbac.RBAC;
 import javax.ws.rs.GET;
 import vnd.virtualarmor.hybridrouter.VendorConstants;
+import vnd.virtualarmor.hybridrouter.model.ExecScripts;
+import vnd.virtualarmor.hybridrouter.model.TaskResponse;
+
 import javax.ws.rs.Produces;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.HEAD;
@@ -46,11 +49,11 @@ public interface ManageNetConfRemoteRest {
 					+ ".hybridrouter+json;version=1" })
 	@RBAC(type = { CRUDEnum.READ }, capability = { "HybridRouterCap" })
 	public ManageNetConfRemoteRest getRoot();
-
+	
+	
 	@Path("exec-script")
 	@POST
 	@RBAC(type = { CRUDEnum.UPDATE }, capability = { "HybridRouterCap" })
-	public void execScript(@Required @QueryParam("deviceId") Long deviceId,
-			@Required @QueryParam("scriptId") Long scriptId,
-			@Context UriContext uriContext);
+	public TaskResponse execScript(ExecScripts es, @Context UriContext uriContext);
+	
 }

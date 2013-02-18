@@ -23,6 +23,10 @@ public class Constants {
 	//Per JS docs, user $$$rest doesn't require any password, but only works when calling the rest service from
 	//a native app running within the Space Fabric.
 	public static String USER_REST = "$$$rest";
+	
+	//exec-scripts constants
+	public static String DEVICE_HREF = "/api/space/device-management/devices/";
+	public static String SCRIPT_HREF = "/api/space/script-management/scripts/";
 
 	//Test constants
 //	public static Long DYNAMIC_OP_SLAX_ID = 3309568L;

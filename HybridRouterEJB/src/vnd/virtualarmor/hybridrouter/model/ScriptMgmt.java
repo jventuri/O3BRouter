@@ -8,6 +8,7 @@
 
 package vnd.virtualarmor.hybridrouter.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -52,19 +53,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "scriptMgmt", propOrder = {
 
 })
-public class ScriptMgmt {
+public class ScriptMgmt implements Serializable {
 
-    @XmlElement(required = true)
+    /**
+	 * generated serial id
+	 */
+	private static final long serialVersionUID = -1015698907820232977L;
+	
+	@XmlElement(required = true)
     protected Script script;
     protected Float scriptVersionSelected;
     @XmlElement(required = true)
     protected Device device;
     protected ScriptParams scriptParams;
-  //jjv  protected ScriptMgmt.ScriptParams scriptParams;
-    
-    //jjv start 
-//    @XmlElement(required = false)
-//    protected List<ScriptParams> scriptParams;
 
     /**
      * Gets the value of the scriptParams property.

@@ -37,7 +37,9 @@ import com.sun.jersey.api.client.ClientResponse;
 @Stateless(name = "ManageNetConfBean")
 @Local(ManageNetConfLocal.class)
 @Remote(ManageNetConfRemote.class)
-public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLocal {
+public class ManageNetConfBean implements ManageNetConfRemote,
+		ManageNetConfLocal
+{
 
 	/**
 	 * Instance Logger to log messages
@@ -48,7 +50,8 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 	/**
 	 * Default constructor.
 	 */
-	public ManageNetConfBean() {
+	public ManageNetConfBean()
+	{
 	}
 
 	/**
@@ -59,9 +62,11 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 	 * @param scriptId
 	 *            the ID of the script that will be executed.
 	 * 
-	 * @return response string
+	 * @return TaskResponse response containing task metadata
 	 */
-	public void execScript(ApiContext apic, Long deviceId, Long scriptId) {
+	public TaskResponse execScript(ApiContext apic, Long deviceId, Long scriptId)
+	{
+		TaskResponse tr = new TaskResponse();
 
 		// logging jersey
 		Logger.getLogger("com.sun.jersey").setLevel(Level.DEBUG);
@@ -73,14 +78,10 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 		Client jerseyClient = client.jerseyHttpClient();
 
 		// build the URL
-		String execScriptUrl = iac.getBaseUrl()
-				+ VendorConstants.SPACE_URL_PREFIX
-				+ "/script-management/scripts/exec-scripts?queue="
-				+ iac.getBaseUrl() + "/api/hornet-q/queues/"
-				+ Constants.QUEUE_NAME;
+		String execScriptUrl = createUrl(iac.getBaseUrl());
 
 		ExecScripts execScripts = createRequestDTO(deviceId, scriptId);
-		
+
 		// call exec-scripts REST API
 		ClientResponse response = jerseyClient
 				.resource(execScriptUrl)
@@ -92,27 +93,78 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 
 		String entity = response.getEntity(String.class);
 
-		if (response.getClientResponseStatus() != ClientResponse.Status.ACCEPTED) {
+		if (response.getClientResponseStatus() != ClientResponse.Status.ACCEPTED)
+		{
 			logger.error("execScript REST failed with status: "
 					+ response.getClientResponseStatus() + " and reason: "
 					+ response.getClientResponseStatus().getReasonPhrase()
 					+ " and error message: " + entity);
-		} else {
-			TaskResponse tr = createResponseObject(entity);
+		} else
+		{
+			tr = createResponseObject(entity);
 		}
-		return;
 
+		return tr;
+	}
+
+	// new
+	/**
+	 * Execute a script on a device.
+	 * 
+	 * @param execScripts
+	 *            the ExecScripts request element.
+	 * 
+	 * @return TaskResponse response containing task metadata
+	 */
+	public TaskResponse execScript(ApiContext apic, ExecScripts execScripts)
+	{
+		TaskResponse tr = new TaskResponse();
+
+		// logging jersey
+		Logger.getLogger("com.sun.jersey").setLevel(Level.DEBUG);
+
+		InternalApiContext iac = (InternalApiContext) apic;
+
+		// Create an instance of JSServiceClient using ApiContext
+		JSServiceClient client = new JSServiceClient(apic);
+		Client jerseyClient = client.jerseyHttpClient();
+		
+		// build the URL
+		String execScriptUrl = createUrl(iac.getBaseUrl());
+
+		// call exec-scripts REST API
+		ClientResponse response = jerseyClient
+				.resource(execScriptUrl)
+				.accept(VendorConstants.SPACE_DATATYPE_PREFIX
+						+ ".script-management.exec-scripts+xml;version=2")
+				.type(VendorConstants.SPACE_DATATYPE_PREFIX
+						+ ".script-management.exec-scripts+xml;version=2;charset=UTF-8")
+				.post(ClientResponse.class, execScripts);
+
+		String entity = response.getEntity(String.class);
+
+		if (response.getClientResponseStatus() != ClientResponse.Status.ACCEPTED)
+		{
+			logger.error("execScript REST failed with status: "
+					+ response.getClientResponseStatus() + " and reason: "
+					+ response.getClientResponseStatus().getReasonPhrase()
+					+ " and error message: " + entity);
+		} else
+		{
+			tr = createResponseObject(entity);
+		}
+
+		return tr;
 	}
 
 	// Builds a request body for exec-scripts
-	private String getRequestBody(Long deviceId, Long scriptId) {
+	private String getRequestBody(Long deviceId, Long scriptId)
+	{
 
-		StringBuffer scriptHref = new StringBuffer(
-				"<script href=\"/api/space/script-management/scripts/").append(
-				scriptId).append("\"/>");
-		StringBuffer deviceHref = new StringBuffer(
-				"<device href=\"/api/space/device-management/devices/").append(
-				deviceId).append("\"/>");
+		StringBuffer scriptHref = new StringBuffer(Constants.SCRIPT_HREF)
+				.append(scriptId).append("\"/>");
+		StringBuffer deviceHref = new StringBuffer(Constants.DEVICE_HREF)
+				.append(deviceId).append("\"/>");
 
 		String scriptParams = "<scriptParams><scriptParam><paramName>policy-name</paramName><paramValue>testREST1</paramValue></scriptParam><scriptParam><paramName>silent</paramName><paramValue>0</paramValue></scriptParam></scriptParams>";
 
@@ -125,7 +177,8 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 	}
 
 	// Creates the Request DTO
-	private ExecScripts createRequestDTO(Long deviceId, Long scriptId) {
+	private ExecScripts createRequestDTO(Long deviceId, Long scriptId)
+	{
 		ScriptMgmt sm = new ScriptMgmt();
 
 		// Device
@@ -160,11 +213,26 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 		return es;
 	}
 
+	//Builds the URL for the exec-scripts REST service
+	private String createUrl(String baseUrl)
+	{
+		// build the URL
+		StringBuffer execScriptUrl = new StringBuffer(baseUrl)
+				.append(VendorConstants.SPACE_URL_PREFIX)
+				.append("/script-management/scripts/exec-scripts?queue=")
+				.append(baseUrl).append("/api/hornet-q/queues/")
+				.append(Constants.QUEUE_NAME);
+
+		return execScriptUrl.toString();
+	}
+
 	// Creates an object from the exec-scripts xml response
-	private TaskResponse createResponseObject(String xml) {
+	private TaskResponse createResponseObject(String xml)
+	{
 		TaskResponse taskResponse = new TaskResponse();
 
-		try {
+		try
+		{
 			final JAXBContext context = JAXBContext
 					.newInstance(TaskResponse.class);
 
@@ -176,7 +244,8 @@ public class ManageNetConfBean implements ManageNetConfRemote, ManageNetConfLoca
 			// Unmarshal the XML in the stringWriter back into an object
 			taskResponse = (TaskResponse) unmarshaller
 					.unmarshal(new StringReader(stringWriter.toString()));
-		} catch (JAXBException e) {
+		} catch (JAXBException e)
+		{
 			logger.error("Exception converting XML " + xml
 					+ " to a Response object.  Exception is: " + e.getMessage());
 		}

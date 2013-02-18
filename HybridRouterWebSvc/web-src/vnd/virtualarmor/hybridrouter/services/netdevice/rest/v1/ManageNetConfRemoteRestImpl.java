@@ -1,36 +1,39 @@
 package vnd.virtualarmor.hybridrouter.services.netdevice.rest.v1;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import net.juniper.jmp.ApiContext;
+import net.juniper.jmp.interceptors.hateoas.HATEOASMethod;
+import net.juniper.jmp.interceptors.hateoas.HATEOASMethodObject;
+import net.juniper.jmp.parsers.common.UriContext;
+import net.juniper.jmp.websvc.common.WebSvcAbstract;
+import net.juniper.jmp.websvc.helper.JSAuditlogHelper;
+
 import org.apache.log4j.Logger;
 
+import vnd.virtualarmor.hybridrouter.Constants;
+import vnd.virtualarmor.hybridrouter.model.ExecScripts;
+import vnd.virtualarmor.hybridrouter.model.TaskResponse;
 import vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote;
 
-import javax.ws.rs.WebApplicationException;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAccessType;
-import net.juniper.jmp.cmp.system.JxServiceLocator;
-import net.juniper.jmp.parsers.common.UriContext;
-import net.juniper.jmp.websvc.helper.JSAuditlogHelper;
-import net.juniper.jmp.websvc.common.WebSvcAbstract;
-import net.juniper.jmp.interceptors.hateoas.HATEOASMethodObject;
-import javax.xml.bind.annotation.XmlElement;
-import net.juniper.jmp.interceptors.hateoas.HATEOASMethod;
-
-/*******************************************************************************
- * FILE NAME: ManageNetConfRemoteRestImpl.java
- * PURPOSE:   Created by Junos Space SDK EJB-Rest Wizard
- *
- *
- * Revision History: 
- * AUTHOR:              CHANGE:  
- * Auto generated       Initial Version  
+/**
+ * REST service to manager NETCONF devices
  * 
+ * @author JayVenturini
  * 
- ******************************************************************************/
+ */
 @XmlRootElement(name = "hybrid-router")
 @XmlAccessorType(XmlAccessType.NONE)
 public class ManageNetConfRemoteRestImpl extends WebSvcAbstract implements
-		ManageNetConfRemoteRest {
+		ManageNetConfRemoteRest
+{
 
 	/**
 	 * logger instance to log messages
@@ -47,56 +50,98 @@ public class ManageNetConfRemoteRestImpl extends WebSvcAbstract implements
 	/**
 	 * default constructor
 	 */
-	public ManageNetConfRemoteRestImpl() {
+	public ManageNetConfRemoteRestImpl()
+	{
 		managenetconfremote = getBean();
 	}
 
 	/**
-	 * <pre>
-	 * <b>Method:</b>execScript
-	 *
-	 * <b>Description:</b> This is an  auto generated method with stub
-	 * implementation which uses the <code>vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote</code> EJB bean and exposes
-	 * it's method with Rest web services interface.
-	 * @param deviceId Long representing the device GUID
-	 * @param scriptId Long representing the script GUID
-	 * @param uriContext UriContext
-	 * @return void
+	 * <b>Description:</b> This is a REST method for executing device scripts by
+	 * delegating its implementation to the
+	 * <code>vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote</code>
+	 * EJB bean.
+	 * 
+	 * @param ExecScripts
+	 *            POJO representing request parameters
+	 * 
+	 * @return TaskResponse response containing task metadata
 	 */
-	public void execScript(Long deviceId, Long scriptId, UriContext uriContext) {
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,
+			MediaType.TEXT_PLAIN })
+	public TaskResponse execScript(ExecScripts execScripts,
+			UriContext uriContext)
+	{
+		TaskResponse tr = new TaskResponse();
 
-		try {
-			getBean().execScript(uriContext.getApicontext(), deviceId, scriptId);
-			JSAuditlogHelper.addDescriptionToAuditLog("Submitting configuration update for device '" + deviceId + "'");
-		} catch (Exception e) {
+		try
+		{
+
+			if (execScripts.getScriptMgmt().size() > 0)
+			{
+				// build device href element if only the device guid was passed
+				// in
+				String deviceHref = execScripts.getScriptMgmt().get(0)
+						.getDevice().getHref();
+				if (deviceHref.indexOf(Constants.DEVICE_HREF) == -1)
+				{
+					StringBuffer deviceBuf = new StringBuffer(
+							Constants.DEVICE_HREF).append(deviceHref);
+					execScripts.getScriptMgmt().get(0).getDevice()
+							.setHref(deviceBuf.toString());
+				}
+
+				// build script href element if only the script guid was passed
+				// in
+				String scriptHref = execScripts.getScriptMgmt().get(0)
+						.getScript().getHref();
+				if (scriptHref.indexOf(Constants.SCRIPT_HREF) == -1)
+				{
+					StringBuffer scriptBuf = new StringBuffer(
+							Constants.SCRIPT_HREF).append(scriptHref);
+					execScripts.getScriptMgmt().get(0).getScript()
+							.setHref(scriptBuf.toString());
+				}
+
+				tr = getBean().execScript(uriContext.getApicontext(),
+						execScripts);
+				JSAuditlogHelper
+						.addDescriptionToAuditLog("Submitting configuration update for device '"
+								+ deviceHref + "'");
+			}
+		} catch (Exception e)
+		{
 			JSAuditlogHelper.addDescriptionToAuditLog("Exception  occurred "
 					+ e.getMessage());
 			throw new WebApplicationException(e);
-		} finally {
-			//TODO: Auto generated code
+		} finally
+		{
 		}
 
-		return;
+		return tr;
 	}
 
 	/**
 	 * Return the new instance
+	 * 
 	 * @return ManageNetConfRemoteRest
 	 */
-	public ManageNetConfRemoteRest getRoot() {
+	public ManageNetConfRemoteRest getRoot()
+	{
 		return new ManageNetConfRemoteRestImpl();
 	}
 
 	/**
 	 * Create the bean instance
-	 * @return vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote
+	 * 
+	 * @return 
+	 *         vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote
 	 */
-	private vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote getBean() {
-		if (managenetconfremote == null) {
+	private vnd.virtualarmor.hybridrouter.services.netdevice.ManageNetConfRemote getBean()
+	{
+		if (managenetconfremote == null)
+		{
 			managenetconfremote = ManageNetConfRemote.Naming.getInstance();
-			
-		//	managenetconfremote = JxServiceLocator
-			//		.lookup("ManageNetConfRemote");
 		}
 		return managenetconfremote;
 	}
