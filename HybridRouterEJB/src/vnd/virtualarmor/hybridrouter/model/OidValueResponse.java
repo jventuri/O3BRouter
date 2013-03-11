@@ -12,7 +12,7 @@ public class OidValueResponse
 {
 
 	@XmlElement(required = true)
-	protected String field;
+	protected String value;
 
 	@XmlAttribute
 	protected String href;
@@ -21,14 +21,14 @@ public class OidValueResponse
 	{
 	}
 
-	public String getField()
+	public String getValue()
 	{
-		return field;
+		return value;
 	}
 
-	public void setField(String field)
+	public void setValue(String value)
 	{
-		this.field = field;
+		this.value = value;
 	}
 
 	public String getHref()

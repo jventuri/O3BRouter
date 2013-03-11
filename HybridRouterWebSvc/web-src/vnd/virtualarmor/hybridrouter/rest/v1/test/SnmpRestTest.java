@@ -109,9 +109,13 @@ public final class SnmpRestTest {
 			String request_URL = HOST + SnmpRestTest.contextPath
 					+ "/hybridrouter" + "/oid-values/" + deviceAddress + "/"
 					+ port + "/" + community + "?" + oid;
+			System.out.println("\nrequest URL: " + request_URL);
 			
-			String accept = VendorConstants.APP_DATATYPE_PREFIX
-					+ ".hybridrouter.oid-value+xml;version=1;";
+			System.out.println("XML accept: " + VendorConstants.APP_DATATYPE_PREFIX
+			+ ".hybridrouter.oid-value+xml;version=1");
+			
+			System.out.println("JSON accept: " + VendorConstants.APP_DATATYPE_PREFIX
+					+ ".hybridrouter.oid-value+json;version=1");
 					
 			if (MediaType.APPLICATION_XML.equals(dataType)) {
 				clientResponse = jerseyClient

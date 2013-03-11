@@ -11,11 +11,8 @@ import vnd.virtualarmor.hybridrouter.model.ExecScripts;
 import vnd.virtualarmor.hybridrouter.model.TaskResponse;
 
 @Local
-public interface ManageNetConfLocal
+public interface ManageNetConfLocal extends ManageNetConf
 {
-	public TaskResponse execScript(ApiContext ctx, Long deviceId, Long scriptId);
-	
-	public TaskResponse execScript(ApiContext apic, ExecScripts execScripts);
 
 	public class Naming
 	{

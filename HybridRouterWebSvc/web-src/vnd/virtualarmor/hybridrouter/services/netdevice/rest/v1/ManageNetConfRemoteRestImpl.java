@@ -54,6 +54,8 @@ public class ManageNetConfRemoteRestImpl extends WebSvcAbstract implements
 	{
 		managenetconfremote = getBean();
 	}
+	
+
 
 	/**
 	 * <b>Description:</b> This is a REST method for executing device scripts by

@@ -3,6 +3,7 @@ package vnd.virtualarmor.hybridrouter.services.netdevice;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -77,7 +78,8 @@ public class SnmpPollingBean implements TimedObject, SnmpPollingBeanLocal,
 			pti.setFailedCount(0);
 			pti.setName("SnmpPollingTimer");
 
-			// create the timer, starting 30 seconds from now and running every 5
+			// create the timer, starting 30 seconds from now and running every
+			// 5
 			// seconds
 			timerService.createTimer(30000, 5000, pti);
 			logger.debug("Successfully created SnmpPollingTimer timer!");
@@ -99,7 +101,7 @@ public class SnmpPollingBean implements TimedObject, SnmpPollingBeanLocal,
 				OidValueResponse oidResponse = createResponseObject(oidXml);
 
 				// pass or fail biz rules?
-				if (applyBusinessRules(oidResponse.getField()))
+				if (applyBusinessRules(oidResponse.getValue()))
 				{
 					// pass, reset failed counter
 					failedCount = 0;
@@ -116,8 +118,50 @@ public class SnmpPollingBean implements TimedObject, SnmpPollingBeanLocal,
 								.loadProperties(Constants.PROPERTY_FILE_NAME);
 						String demoScriptId = props
 								.getProperty(Constants.DEMO_SCRIPT_PROP);
-						String demoDeviceId = props
-								.getProperty(Constants.DEMO_DEVICE_PROP);
+						Long scriptId = Long.valueOf(demoScriptId);
+						
+						String demoPrimaryDeviceId = props
+								.getProperty(Constants.DEMO_DEVICE_PRIMARY_PROP);
+						Long primaryDeviceId = Long
+								.valueOf(demoPrimaryDeviceId);
+						
+						String demoSecondaryDeviceId = props
+								.getProperty(Constants.DEMO_DEVICE_SECONDARY_PROP);
+						Long secondaryDeviceId = (demoSecondaryDeviceId != null && demoSecondaryDeviceId
+								.length() > 0) ? Long
+								.valueOf(demoSecondaryDeviceId) : 0;
+
+						HashMap<String, String> params = new HashMap<String, String>();
+
+						String key1 = props
+								.getProperty(Constants.DEMO_SCRIPT_KEY1);
+						String val1 = props
+								.getProperty(Constants.DEMO_SCRIPT_VALUE1);
+						if (key1 != null && key1.length() > 0 && val1 != null
+								&& val1.length() > 0)
+						{
+							params.put(key1, val1);
+						}
+
+						String key2 = props
+								.getProperty(Constants.DEMO_SCRIPT_KEY2);
+						String val2 = props
+								.getProperty(Constants.DEMO_SCRIPT_VALUE2);
+						if (key2 != null && key2.length() > 0 && val2 != null
+								&& val2.length() > 0)
+						{
+							params.put(key2, val2);
+						}
+
+						String key3 = props
+								.getProperty(Constants.DEMO_SCRIPT_KEY3);
+						String val3 = props
+								.getProperty(Constants.DEMO_SCRIPT_VALUE3);
+						if (key3 != null && key3.length() > 0 && val3 != null
+								&& val3.length() > 0)
+						{
+							params.put(key3, val3);
+						}
 
 						// update the configuration
 						// Create and initialize SNMP polling timer
@@ -125,8 +169,7 @@ public class SnmpPollingBean implements TimedObject, SnmpPollingBeanLocal,
 								.getInstance();
 
 						manageNetConf.execScript(createApiContext(),
-								Long.valueOf(demoDeviceId),
-								Long.valueOf(demoScriptId));
+								primaryDeviceId, secondaryDeviceId, scriptId, params);
 
 						// reset the counter
 						failedCount = 0;

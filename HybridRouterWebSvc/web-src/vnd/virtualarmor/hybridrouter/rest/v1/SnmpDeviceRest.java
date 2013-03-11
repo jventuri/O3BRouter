@@ -22,19 +22,12 @@ import net.juniper.jmp.parsers.annotations.ParseContext;
 import net.juniper.jmp.cmp.async.Task;
 import net.juniper.jmp.interceptors.hateoas.HATEOAS;
 
-/*******************************************************************************
- * FILE NAME: SnmpDeviceRest.java
- * PURPOSE:   Created by Junos Space SDK EJB-Rest Wizard
- * EJB NAME: HybridRouterEJB:vnd.virtualarmor.hybridrouter.services.netdevice.ManageSnmpRemote.java
- *
- *
- * Revision History: 
- * AUTHOR:              CHANGE:  
- * Auto generated       Initial Version  
+/**
+ * Manages retrieval of OID values from an SNMP device.
  * 
- * 
- ******************************************************************************/
-
+ * @author JayVenturini
+ *
+ */
 @Path("/hybridrouter")
 public interface SnmpDeviceRest {
 
@@ -58,7 +51,7 @@ public interface SnmpDeviceRest {
 			VendorConstants.APP_DATATYPE_PREFIX
 					+ ".hybridrouter.oid-value+json;version=1;q=0.01" })
 	@RBAC(type = { CRUDEnum.READ }, capability = { "HybridRouterCap" })
-	public vnd.virtualarmor.hybridrouter.rest.v1.SnmpDevice_getOidValue getOidValue(
+	public OidValue getOidValue(
 			@PathParam("deviceAddress") String deviceAddress,
 			@PathParam("port") int port,
 			@PathParam("community") String community,

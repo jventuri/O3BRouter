@@ -2,6 +2,7 @@ package vnd.virtualarmor.hybridrouter.services.netdevice;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Map;
 
 import javax.ejb.Local;
 import javax.ejb.Remote;
@@ -57,57 +58,41 @@ public class ManageNetConfBean implements ManageNetConfRemote,
 	/**
 	 * Execute a script on a device.
 	 * 
-	 * @param deviceId
-	 *            the ID of the device the script will be executed on.
+	 * @param primaryDeviceId
+	 *            the ID of the primary device the script will be executed on.
+	 * @param secondaryDeviceId
+	 *            the ID of the secondary device the script will be executed on.
 	 * @param scriptId
 	 *            the ID of the script that will be executed.
+	 * @param scriptParameters
+	 *            the map of script parameters.
 	 * 
 	 * @return TaskResponse response containing task metadata
 	 */
-	public TaskResponse execScript(ApiContext apic, Long deviceId, Long scriptId)
+	public TaskResponse execScript(ApiContext apic, Long primaryDeviceId,
+			Long secondaryDeviceId, Long scriptId,
+			Map<String, String> scriptParameters)
 	{
-		TaskResponse tr = new TaskResponse();
-
 		// logging jersey
 		Logger.getLogger("com.sun.jersey").setLevel(Level.DEBUG);
 
-		InternalApiContext iac = (InternalApiContext) apic;
+		// run the script on the primary device
+		ExecScripts execScripts = createRequestDTO(primaryDeviceId, scriptId,
+				scriptParameters);
+		TaskResponse tr = execScript(apic, execScripts);
 
-		// Create an instance of JSServiceClient using ApiContext
-		JSServiceClient client = new JSServiceClient(apic);
-		Client jerseyClient = client.jerseyHttpClient();
-
-		// build the URL
-		String execScriptUrl = createUrl(iac.getBaseUrl());
-
-		ExecScripts execScripts = createRequestDTO(deviceId, scriptId);
-
-		// call exec-scripts REST API
-		ClientResponse response = jerseyClient
-				.resource(execScriptUrl)
-				.accept(VendorConstants.SPACE_DATATYPE_PREFIX
-						+ ".script-management.exec-scripts+xml;version=2")
-				.type(VendorConstants.SPACE_DATATYPE_PREFIX
-						+ ".script-management.exec-scripts+xml;version=2;charset=UTF-8")
-				.post(ClientResponse.class, execScripts);
-
-		String entity = response.getEntity(String.class);
-
-		if (response.getClientResponseStatus() != ClientResponse.Status.ACCEPTED)
+		// run the script on the secondary device (if it exists)
+		if (secondaryDeviceId != null && secondaryDeviceId > 0)
 		{
-			logger.error("execScript REST failed with status: "
-					+ response.getClientResponseStatus() + " and reason: "
-					+ response.getClientResponseStatus().getReasonPhrase()
-					+ " and error message: " + entity);
-		} else
-		{
-			tr = createResponseObject(entity);
+			ExecScripts execScripts2 = createRequestDTO(secondaryDeviceId,
+					scriptId, scriptParameters);
+			TaskResponse tr2 = execScript(apic, execScripts2);
 		}
 
+		// return the response for script exec on the primary device
 		return tr;
 	}
 
-	// new
 	/**
 	 * Execute a script on a device.
 	 * 
@@ -128,7 +113,7 @@ public class ManageNetConfBean implements ManageNetConfRemote,
 		// Create an instance of JSServiceClient using ApiContext
 		JSServiceClient client = new JSServiceClient(apic);
 		Client jerseyClient = client.jerseyHttpClient();
-		
+
 		// build the URL
 		String execScriptUrl = createUrl(iac.getBaseUrl());
 
@@ -157,27 +142,9 @@ public class ManageNetConfBean implements ManageNetConfRemote,
 		return tr;
 	}
 
-	// Builds a request body for exec-scripts
-	private String getRequestBody(Long deviceId, Long scriptId)
-	{
-
-		StringBuffer scriptHref = new StringBuffer(Constants.SCRIPT_HREF)
-				.append(scriptId).append("\"/>");
-		StringBuffer deviceHref = new StringBuffer(Constants.DEVICE_HREF)
-				.append(deviceId).append("\"/>");
-
-		String scriptParams = "<scriptParams><scriptParam><paramName>policy-name</paramName><paramValue>testREST1</paramValue></scriptParam><scriptParam><paramName>silent</paramName><paramValue>0</paramValue></scriptParam></scriptParams>";
-
-		StringBuffer requestBody = new StringBuffer(
-				"<exec-scripts><scriptMgmt>").append(scriptHref)
-				.append(deviceHref).append(scriptParams)
-				.append("</scriptMgmt></exec-scripts>");
-
-		return requestBody.toString();
-	}
-
 	// Creates the Request DTO
-	private ExecScripts createRequestDTO(Long deviceId, Long scriptId)
+	private ExecScripts createRequestDTO(Long deviceId, Long scriptId,
+			Map<String, String> scriptParameters)
 	{
 		ScriptMgmt sm = new ScriptMgmt();
 
@@ -195,16 +162,23 @@ public class ManageNetConfBean implements ManageNetConfRemote,
 
 		ScriptParams scriptParams = new ScriptParams();
 
-		ScriptParam sp1 = new ScriptParam();
-		sp1.setParamName("policy-name");
-		sp1.setParamValue("testMarksScript");
-		scriptParams.getScriptParam().add(sp1);
+		// add all script parameters to the request body
+		for (String key : scriptParameters.keySet())
+		{
+			ScriptParam sp = new ScriptParam();
+			sp.setParamName(key);
+			sp.setParamValue(scriptParameters.get(key));
+			scriptParams.getScriptParam().add(sp);
+		}
 
-		ScriptParam sp2 = new ScriptParam();
-		sp2.setParamName("silent");
-		sp2.setParamValue("0");
-		scriptParams.getScriptParam().add(sp2);
-
+		/*
+		 * ScriptParam sp1 = new ScriptParam(); sp1.setParamName("policy-name");
+		 * sp1.setParamValue("testMarksScript");
+		 * scriptParams.getScriptParam().add(sp1);
+		 * 
+		 * ScriptParam sp2 = new ScriptParam(); sp2.setParamName("silent");
+		 * sp2.setParamValue("0"); scriptParams.getScriptParam().add(sp2);
+		 */
 		sm.setScriptParams(scriptParams);
 
 		ExecScripts es = new ExecScripts();
@@ -213,7 +187,7 @@ public class ManageNetConfBean implements ManageNetConfRemote,
 		return es;
 	}
 
-	//Builds the URL for the exec-scripts REST service
+	// Builds the URL for the exec-scripts REST service
 	private String createUrl(String baseUrl)
 	{
 		// build the URL

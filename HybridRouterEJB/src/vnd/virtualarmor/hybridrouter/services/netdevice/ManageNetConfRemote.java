@@ -12,12 +12,8 @@ import vnd.virtualarmor.hybridrouter.model.TaskResponse;
 import net.juniper.jmp.ApiContext;
 
 @Remote
-public interface ManageNetConfRemote
+public interface ManageNetConfRemote extends ManageNetConf
 {
-
-	public TaskResponse execScript(ApiContext ctx, Long deviceId, Long scriptId);
-	
-	public TaskResponse execScript(ApiContext apic, ExecScripts execScripts);
 	
 	public class Naming
 	{

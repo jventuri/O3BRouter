@@ -16,7 +16,7 @@ import net.juniper.jmp.parsers.annotations.Filterable;
 import java.util.Date;
 
 /*******************************************************************************
- * FILE NAME: SnmpDevice_getOidValue.java
+ * FILE NAME: OidValue.java
  * PURPOSE:   These comments are auto generated
  *
  *
@@ -28,27 +28,27 @@ import java.util.Date;
  ******************************************************************************/
 @XmlRootElement(name = "oid-values")
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder = { "field" })
-public class SnmpDevice_getOidValue {
+@XmlType(propOrder = { "value" })
+public class OidValue {
 
-	@XmlElement(name = "field", required = true)
-	String field;
+	@XmlElement(name = "value", required = true)
+	String value;
 	@HATEOAS(uri = "")
 	@XmlAttribute(name = "uri")
 	private String uri = null;
 
 	/**
-	 * @param field
+	 * @param value
 	 */
-	public void setField(String field) {
-		this.field = field;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	/**
 	 * @return String
 	 */
-	public String getField() {
-		return field;
+	public String getValue() {
+		return value;
 	}
 
 	/**
